@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="substitutionSubject"
+			type="com.maxkrass.stundenplankotlinrefactor.data.SubstitutionSubject" />
+
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="48dp">
+
+
+		<TextView
+			android:id="@+id/substitution_subjects_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:text='@{substitutionSubject.grade + ": " + substitutionSubject.subject, default="Q2: D GK2"}'
+			android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageView
+			android:id="@+id/substitution_subjects_delete"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginTop="12dp"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_clear_24dp" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

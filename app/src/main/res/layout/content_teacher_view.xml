@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="48dp"
+	style="@style/Selectable"
+	android:orientation="horizontal"
+	android:paddingEnd="8dp"
+	android:paddingStart="8dp">
+
+	<TextView
+		android:id="@+id/teacher_name"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_marginStart="8dp"
+		android:layout_weight="1"
+		android:textSize="16sp"
+		android:transitionName="teacher_name" />
+
+	<ImageView
+		android:id="@+id/email_teacher"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		android:layout_gravity="center_vertical"
+		android:background="?android:selectableItemBackgroundBorderless"
+		android:clickable="true"
+		android:focusable="true"
+		android:scaleType="center"
+		android:src="@drawable/ic_mail_24dp"
+		android:transitionName="teacher_email_icon" />
+
+</LinearLayout>

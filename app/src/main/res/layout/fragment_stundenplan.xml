@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.maxkrass.stundenplankotlinrefactor.customviews.ScalableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/grey50"
+	android:fillViewport="true"
+	android:id="@+id/stundenplan_container"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior"
+	tools:context="com.maxkrass.stundenplankotlinrefactor.main.MainActivity">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+
+		<View
+			android:id="@+id/view9"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="24dp"
+			android:background="@color/divider_black"
+			android:visibility="visible"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteX="0dp" />
+
+		<View
+			android:id="@+id/view7"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@color/divider_black"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view8"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/view5"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteX="80dp"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<View
+			android:id="@+id/view5"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:layout_marginTop="0dp"
+			android:background="@color/divider_black"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view7"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/view6"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<View
+			android:id="@+id/view8"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@color/divider_black"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/view7"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteX="131dp"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<View
+			android:id="@+id/view6"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:layout_marginTop="0dp"
+			android:background="@color/divider_black"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view5"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/view5" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@string/monday_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toTopOf="@+id/view9"
+			app:layout_constraintStart_toStartOf="@+id/column_monday"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@string/tuesday_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toTopOf="@+id/view9"
+			app:layout_constraintStart_toEndOf="@+id/view6"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@string/wednesday_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toTopOf="@+id/view9"
+			app:layout_constraintStart_toEndOf="@+id/view5"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@string/thursday_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toTopOf="@+id/view9"
+			app:layout_constraintStart_toEndOf="@+id/view7"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:text="@string/friday_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toTopOf="@+id/view9"
+			app:layout_constraintStart_toEndOf="@+id/view8"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:layout_editor_absoluteY="0dp" />
+
+		<RelativeLayout
+			android:id="@+id/column_monday"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="0dp"
+			android:animateLayoutChanges="true"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view6"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+		<RelativeLayout
+			android:id="@+id/column_tuesday"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:animateLayoutChanges="true"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view5"
+			app:layout_constraintStart_toEndOf="@+id/view6"
+			app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+		<RelativeLayout
+			android:id="@+id/column_wednesday"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:animateLayoutChanges="true"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view7"
+			app:layout_constraintStart_toEndOf="@+id/view5"
+			app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+		<RelativeLayout
+			android:id="@+id/column_thursday"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:animateLayoutChanges="true"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/view8"
+			app:layout_constraintStart_toEndOf="@+id/view7"
+			app:layout_constraintTop_toTopOf="@+id/column_wednesday" />
+
+		<RelativeLayout
+			android:id="@+id/column_friday"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:animateLayoutChanges="true"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/view8"
+			app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/add_lesson"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			app:fabSize="normal"
+			android:tint="@color/material_white"
+			app:srcCompat="@drawable/ic_add_24dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:layout_marginEnd="16dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			android:layout_marginBottom="16dp" />
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.maxkrass.stundenplankotlinrefactor.customviews.ScalableScrollView>

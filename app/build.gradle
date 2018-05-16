@@ -1,0 +1,114 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion "android-P"
+    defaultConfig {
+        applicationId "com.maxkrass.stundenplankotlinrefactor"
+        minSdkVersion 21
+        targetSdkVersion "android-P"
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    // Testing
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'androidx.annotation', module: 'annotation'
+    })
+    testImplementation 'junit:junit:4.12'
+
+    // Android Support Library
+    implementation "androidx.browser:browser:$androidx_version"
+    implementation "androidx.appcompat:appcompat:$androidx_version"
+    implementation "androidx.core:core:$androidx_version"
+    implementation "androidx.cardview:cardview:$androidx_version"
+    implementation "com.google.android.material:material:$androidx_version"
+
+    // Constraint Layout
+    implementation 'androidx.constraintlayout:constraintlayout-solver:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.0'
+
+    // Thirty Inch
+    implementation "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinch_version"
+
+    // Anko (ANdroid KOtlin)
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-cardview-v7:$anko_version"
+
+    // Anko Design
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+    implementation "org.jetbrains.anko:anko-design-coroutines:$anko_version"
+    def lifecycle_version = "2.0.0-alpha1"
+
+    // Android architecture
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-database:15.0.1'
+    implementation 'com.google.firebase:firebase-auth:15.1.0'
+    implementation "com.google.firebase:firebase-config:$firebase_version"
+    implementation "com.google.firebase:firebase-crash:$firebase_version"
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation "com.google.firebase:firebase-messaging:$firebase_version"
+    implementation 'com.google.firebase:firebase-firestore:16.0.0'
+
+    // FirebaseUI
+    implementation "com.firebaseui:firebase-ui-database:$firebase_ui_version"
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_version"
+    implementation "com.firebaseui:firebase-ui-firestore:$firebase_ui_version"
+
+    // Splitties
+    implementation "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+    implementation "xyz.louiscad.splitties:splitties-material-lists:$splitties_version"
+
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    // KoDeIn (KOtlin DEpendecy INjection)
+    implementation 'org.kodein.di:kodein-di-generic-jvm:5.0.0'
+    implementation 'org.kodein.di:kodein-di-framework-android:5.0.0'
+
+    // LiteUtilities
+    implementation 'com.github.gurleensethi:LiteUtilities:v1.3.0'
+
+    // Android KTX
+    implementation "androidx.core:core-ktx:$androidx_version"
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+apply plugin: 'com.google.gms.google-services'

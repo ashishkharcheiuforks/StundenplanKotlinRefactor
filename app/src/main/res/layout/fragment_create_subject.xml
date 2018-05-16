@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="16dp">
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:id="@+id/subject_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/subject_name" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:counterEnabled="true"
+		app:counterMaxLength="5">
+
+		<EditText
+			android:id="@+id/subject_abbr"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="3"
+			android:hint="@string/subject_abbr"
+			android:maxLength="5" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<FrameLayout
+		android:id="@+id/select_teacher"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_marginTop="16dp"
+		android:background="?android:selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true">
+
+		<ImageView
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_gravity="center_vertical"
+			android:src="@drawable/ic_person_24dp" />
+
+		<TextView
+			android:id="@+id/select_teacher_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="56dp"
+			android:textSize="16sp" />
+
+	</FrameLayout>
+
+	<FrameLayout
+		android:id="@+id/choose_color"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:background="?android:selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true">
+
+		<View
+			android:id="@+id/color_icon"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_gravity="center_vertical"
+			android:background="@drawable/color_icon" />
+
+		<TextView
+			android:id="@+id/color_name_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="56dp"
+			android:text="@string/choose_color"
+			android:textSize="16sp" />
+
+	</FrameLayout>
+
+</LinearLayout>
