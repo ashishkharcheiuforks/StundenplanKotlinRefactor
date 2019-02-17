@@ -1,35 +1,26 @@
 package com.maxkrass.stundenplankotlinrefactor.manageteachers
 
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.maxkrass.stundenplankotlinrefactor.commons.ManageTeachersView
 import com.maxkrass.stundenplankotlinrefactor.data.Teacher
-import com.maxkrass.stundenplankotlinrefactor.data.TeacherSubjects
+import com.maxkrass.stundenplankotlinrefactor.data.TeacherRepository
 import net.grandcentrix.thirtyinch.TiPresenter
+import net.grandcentrix.thirtyinch.kotlin.deliverToView
 
 /**
  * Max made this for StundenplanKotlinRefactor on 14.10.2017.
  */
 class ManageTeachersPresenter : TiPresenter<ManageTeachersView>(), FirebaseTeacherAdapter.TeacherViewHolder.Host {
+
     override fun onTeacherEmailClicked(teacher: Teacher) {
-        view?.onTeacherEmailClicked(teacher)
+        deliverToView { onTeacherEmailClicked(teacher) }
     }
 
-    //fun onTeacherLongClicked(teacher: Teacher): Boolean =
-            //view?.onTeacherLongClicked(teacher) ?: false
-
-    override fun onTeacherClicked(teacher: Teacher,
-                                  viewHolder: FirebaseTeacherAdapter.TeacherViewHolder) {
-        view?.onTeacherClicked(teacher, viewHolder)
+    override fun onTeacherClicked(
+            teacher: Teacher,
+            viewHolder: FirebaseTeacherAdapter.TeacherViewHolder
+    ) {
+        deliverToView { onTeacherClicked(teacher, viewHolder) }
     }
-
-    private val mTeacherRef: DatabaseReference =
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference("stundenplan")
-                    .child("publicTeachers")
 
     override fun onCreate() {
         super.onCreate()
@@ -42,19 +33,9 @@ class ManageTeachersPresenter : TiPresenter<ManageTeachersView>(), FirebaseTeach
     }
 
     val teachersAdapter: FirebaseTeacherAdapter by lazy {
-        val options: FirebaseRecyclerOptions<Teacher> = FirebaseRecyclerOptions.Builder<Teacher>()
-                .setQuery(mTeacherRef, { snapshot: DataSnapshot? ->
-                    snapshot?.let {
-                        Teacher(it.key,
-                                it.key,
-                                TeacherSubjects())
-                    } ?: Teacher("", "", TeacherSubjects())
-                })
-                .build()
         FirebaseTeacherAdapter(
-                options,
+                TeacherRepository.options,
                 this
         )
     }
-
 }

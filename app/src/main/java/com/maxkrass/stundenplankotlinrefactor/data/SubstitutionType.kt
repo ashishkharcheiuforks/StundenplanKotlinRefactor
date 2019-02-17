@@ -17,7 +17,5 @@ enum class SubstitutionType(private val type: String = "") {
             SubstitutionType.values().first { it.type == s }
             return None
         }
-
     }
-
 }

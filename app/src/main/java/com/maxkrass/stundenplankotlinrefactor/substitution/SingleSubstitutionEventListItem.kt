@@ -20,5 +20,4 @@ class SingleSubstitutionEventListItem(context: Context) : RelativeLayout(context
         set(value) {
             ui.event.item = value
         }
-
 }

@@ -9,7 +9,6 @@ import android.widget.FrameLayout
 import com.maxkrass.stundenplankotlinrefactor.R
 import kotlinx.android.synthetic.main.checkbox_widget.view.*
 
-
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
@@ -17,13 +16,16 @@ class CheckBoxWidget : FrameLayout, Checkable {
 
     constructor(context: Context) : super(context) {
         init(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
-             false,
-             "")
+                false,
+                "")
     }
 
-    @JvmOverloads constructor(context: Context,
-                              attributeSet: AttributeSet,
-                              i: Int = 0) : super(context, attributeSet, i) {
+    @JvmOverloads
+    constructor(
+        context: Context,
+        attributeSet: AttributeSet,
+        i: Int = 0
+    ) : super(context, attributeSet, i) {
         val a: TypedArray = context.theme.obtainStyledAttributes(
                 attributeSet,
                 R.styleable.CheckBoxWidget,
@@ -33,8 +35,8 @@ class CheckBoxWidget : FrameLayout, Checkable {
         val text: String = a.getString(R.styleable.CheckBoxWidget_label)
         a.recycle()
         init(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
-             checked,
-             text)
+                checked,
+                text)
     }
 
     private fun init(layoutInflater: LayoutInflater, checked: Boolean, text: String) {
@@ -66,5 +68,4 @@ class CheckBoxWidget : FrameLayout, Checkable {
     override fun setChecked(flag: Boolean) {
         checkbox.isChecked = flag
     }
-
 }

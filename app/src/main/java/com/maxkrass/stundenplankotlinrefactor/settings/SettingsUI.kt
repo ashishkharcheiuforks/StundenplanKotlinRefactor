@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.extensions.recyclerView
 import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
+@Suppress("MagicNumber")
 class SettingsUI : AnkoComponent<SettingsFragment> {
     override fun createView(ui: AnkoContext<SettingsFragment>): View = with(ui) {
         scrollView {
@@ -52,7 +54,7 @@ class SettingsUI : AnkoComponent<SettingsFragment> {
 
                 checkBox(R.string.q2) {
                     id = R.id.check_box_show_q2
-                    setOnCheckedChangeListener(owner.presenter.createCheckedListener(Q2))
+                    onCheckedChange { buttonView, isChecked -> owner.presenter.createCheckedListener(Q2).invoke(buttonView, isChecked) }
                 }.lparams {
                     marginStart = dip(16)
                     topMargin = dip(8)
@@ -78,7 +80,6 @@ class SettingsUI : AnkoComponent<SettingsFragment> {
                     }
                     setHasFixedSize(false)
                 }.lparams(width = dip(0), height = wrapContent)
-
             }.lparams(width = matchParent, height = wrapContent)
 
             lparams(width = matchParent, height = matchParent)

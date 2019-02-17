@@ -4,14 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import androidx.core.widget.NestedScrollView
-
+import android.widget.ScrollView
 
 /**
  * Max made this for StundenplanKotlinRefactor on 20.05.2017.
  */
 
-class ScalableScrollView : NestedScrollView {
+class ScalableScrollView : ScrollView {
 
     private var scaleGestureDetector: ScaleGestureDetector? = null
 
@@ -26,10 +25,7 @@ class ScalableScrollView : NestedScrollView {
         return scaleGestureDetector?.onTouchEvent(event) ?: false
     }
 
-
-
     fun setScaleDetector(scaleDetector: ScaleGestureDetector) {
         scaleGestureDetector = scaleDetector
     }
-
 }

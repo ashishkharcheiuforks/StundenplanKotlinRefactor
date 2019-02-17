@@ -7,7 +7,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.data.Teacher
 import com.maxkrass.stundenplankotlinrefactor.extensions.SingleLineTeacherListItem
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import splitties.typesaferecyclerview.ItemViewHolder
 
 /**
@@ -15,7 +15,8 @@ import splitties.typesaferecyclerview.ItemViewHolder
  */
 class FirebaseTeacherAdapter(
         options: FirebaseRecyclerOptions<Teacher>,
-        private val host: TeacherViewHolder.Host) :
+        private val host: TeacherViewHolder.Host
+) :
         FirebaseRecyclerAdapter<Teacher, FirebaseTeacherAdapter.TeacherViewHolder>(options) {
 
     override fun onBindViewHolder(holder: TeacherViewHolder, position: Int, model: Teacher) {
@@ -25,8 +26,10 @@ class FirebaseTeacherAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherViewHolder =
             TeacherViewHolder(host, parent)
 
-    class TeacherViewHolder(host: FirebaseTeacherAdapter.TeacherViewHolder.Host,
-                            parent: ViewGroup) :
+    class TeacherViewHolder(
+            host: FirebaseTeacherAdapter.TeacherViewHolder.Host,
+            parent: ViewGroup
+    ) :
             ItemViewHolder<Teacher, SingleLineTeacherListItem, FirebaseTeacherAdapter.TeacherViewHolder.Host>(
                     host,
                     R.layout.teacher_view,
@@ -35,7 +38,7 @@ class FirebaseTeacherAdapter(
         override fun SingleLineTeacherListItem.onBind() {
             teacherName.text = data.name
             teacherEmail.onClick { itemEmailClickListener }
-            setOnClickListener(itemClickListener)
+            onClick { itemClickListener }
         }
 
         private val itemClickListener = View.OnClickListener {
@@ -51,5 +54,4 @@ class FirebaseTeacherAdapter(
             fun onTeacherEmailClicked(teacher: Teacher)
         }
     }
-
 }

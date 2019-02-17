@@ -1,7 +1,7 @@
 package com.maxkrass.stundenplankotlinrefactor.data
 
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /**
  * Max made this for StundenplanKotlinRefactor on 08.09.2017.
@@ -20,11 +20,10 @@ class LessonTest {
                 key = "mylessonkey"
         )
 
-        Assert.assertEquals(lesson.key, "mylessonkey")
-        Assert.assertEquals(lesson.location, "0D4")
-        Assert.assertEquals(lesson.period, 0)
-        Assert.assertEquals(lesson.weekday, "monday")
-        Assert.assertEquals(lesson.subject, "Englisch")
+        assertEquals(lesson.key, "mylessonkey")
+        assertEquals(lesson.location, "0D4")
+        assertEquals(lesson.period, 0)
+        assertEquals(lesson.weekday, "monday")
+        assertEquals(lesson.subject, "Englisch")
     }
-
 }

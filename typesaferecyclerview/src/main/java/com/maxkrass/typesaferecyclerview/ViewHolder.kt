@@ -25,7 +25,7 @@ open class ViewHolder<V : View>(val itemView: V) : RecyclerView.ViewHolder(itemV
      * Creates a ViewHolder from a layout resource id.
      *
      * @param layoutResId ID for an XML layout resource to load (e.g., R.layout.main_page)
-     * @param parent      pass the first argument received in
+     * @param parent pass the first argument received in
      * [RecyclerView.Adapter.onCreateViewHolder]
      */
     constructor(@LayoutRes layoutResId: Int, parent: ViewGroup) : this(parent.inflateItem<V>(

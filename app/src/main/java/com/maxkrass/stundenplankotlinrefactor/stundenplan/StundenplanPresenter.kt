@@ -6,6 +6,7 @@ import com.maxkrass.stundenplankotlinrefactor.data.Lessons
 import com.maxkrass.stundenplankotlinrefactor.data.Subjects
 import com.maxkrass.stundenplankotlinrefactor.data.Weekday
 import net.grandcentrix.thirtyinch.TiPresenter
+import net.grandcentrix.thirtyinch.kotlin.deliverToView
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -13,11 +14,11 @@ class StundenplanPresenter : TiPresenter<IStundenplanView>(),
         IStundenplanInteractor.OnLessonsLoadedListener, AnkoLogger {
     override fun onLessonsLoaded(lessons: Lessons, subjects: Subjects) {
         info("lessons loaded")
-        view?.updateWeekdayColumn(lessons, subjects)
+        deliverToView { updateWeekdayColumn(lessons, subjects) }
     }
 
     override fun onLoadingError() {
-        view?.showLoadingError()
+        deliverToView { showLoadingError() }
     }
 
     private val interactor: StundenplanInteractor by lazy { StundenplanInteractor() }

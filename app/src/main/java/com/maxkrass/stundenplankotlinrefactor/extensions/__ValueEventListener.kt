@@ -9,7 +9,7 @@ import com.google.firebase.database.ValueEventListener
  * Max made this for StundenplanKotlinRefactor on 30.11.2017.
  */
 
-class __ValueEventListener: ValueEventListener {
+class __ValueEventListener : ValueEventListener {
 
     private var _onCancelled: ((error: DatabaseError) -> Unit)? = null
     private var _onDataChanged: ((snapshot: DataSnapshot) -> Unit)? = null
@@ -29,7 +29,6 @@ class __ValueEventListener: ValueEventListener {
     fun onDataChange(func: (snapshot: DataSnapshot) -> Unit) {
         _onDataChanged = func
     }
-
 }
 
 inline fun DatabaseReference.addSingleEventListener(func: __ValueEventListener.() -> Unit) {
@@ -37,5 +36,5 @@ inline fun DatabaseReference.addSingleEventListener(func: __ValueEventListener.(
 }
 
 inline fun DatabaseReference.addValueEventListener(func: __ValueEventListener.() -> Unit) {
-    addListenerForSingleValueEvent(__ValueEventListener().apply(func))
+    addValueEventListener(__ValueEventListener().apply(func))
 }

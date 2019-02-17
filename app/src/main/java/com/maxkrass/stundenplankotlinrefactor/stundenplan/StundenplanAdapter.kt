@@ -5,7 +5,6 @@ import android.widget.RelativeLayout
 import androidx.core.util.forEach
 import com.maxkrass.stundenplankotlinrefactor.data.*
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * Max made this for StundenplanKotlinRefactor on 27.05.2017.
@@ -13,7 +12,12 @@ import kotlin.collections.HashMap
 
 class StundenplanAdapter(val containers: Array<RelativeLayout>) {
 
-    internal val lessons: Map<Weekday, Lessons> = HashMap(5)
+    internal val lessons: Map<Weekday, Lessons> = mutableMapOf(
+            Weekday.MONDAY to SparseArray(),
+            Weekday.TUESDAY to SparseArray(),
+            Weekday.WEDNESDAY to SparseArray(),
+            Weekday.THURSDAY to SparseArray(),
+            Weekday.FRIDAY to SparseArray())
 
     internal val periods: List<Period> = listOf(
             Period(index = 0, startHour = 8, startMinute = 10, endHour = 8, endMinute = 55),
@@ -31,8 +35,12 @@ class StundenplanAdapter(val containers: Array<RelativeLayout>) {
     private val firstPeriodStartTime: Calendar = Calendar.getInstance()
     internal var mScalingFactor: Float = 1.0f
     internal var showRoomOnSingleLesson: Boolean = true
-    internal val originalMeasurements: Map<Weekday, SparseArray<Pair<Long, Long>>> =
-            HashMap(5)
+    internal val originalMeasurements: Map<Weekday, SparseArray<Pair<Long, Long>>> = mutableMapOf(
+            Weekday.MONDAY to SparseArray(),
+            Weekday.TUESDAY to SparseArray(),
+            Weekday.WEDNESDAY to SparseArray(),
+            Weekday.THURSDAY to SparseArray(),
+            Weekday.FRIDAY to SparseArray())
 
     init {
 
@@ -40,8 +48,8 @@ class StundenplanAdapter(val containers: Array<RelativeLayout>) {
         firstPeriodStartTime.set(Calendar.MINUTE, periods[0].startMinute)
     }
 
-    fun addLessons(lessons: Lessons, subjects: Subjects? = null) {
-        lessons.forEach { _, lesson -> addLesson(lesson, subjects?.get(lesson.subject)) }
+    fun addLessons(lessons: Lessons, subjects: Subjects) {
+        lessons.forEach { _, lesson -> addLesson(lesson, subjects[lesson.subject]) }
     }
 
     private fun addLesson(lesson: Lesson, subject: Subject? = null) {
@@ -51,7 +59,6 @@ class StundenplanAdapter(val containers: Array<RelativeLayout>) {
     internal fun scaleViews() {
         StundenplanViewScaler(this, lessons, containers).doScale()
     }
-
 
     internal fun isSucceedingLesson(weekday: Weekday, lesson: Lesson): Boolean {
         val potentialLesson: Lesson? = lessons[weekday]?.get(lesson.period - 1)
@@ -66,5 +73,4 @@ class StundenplanAdapter(val containers: Array<RelativeLayout>) {
                 Objects.equals(lesson.period + 1, potentialLesson.period) &&
                 Objects.equals(lesson.subject, potentialLesson.subject)
     }
-
 }

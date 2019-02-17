@@ -6,58 +6,64 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
-import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
 import com.maxkrass.stundenplankotlinrefactor.R
-import com.maxkrass.stundenplankotlinrefactor.extensions.findFragmentByTag
-import com.maxkrass.stundenplankotlinrefactor.extensions.getBooleanExtra
-import com.maxkrass.stundenplankotlinrefactor.extensions.show
-import com.maxkrass.stundenplankotlinrefactor.customviews.CheckBoxWidget
-import com.maxkrass.stundenplankotlinrefactor.data.Lesson
+import com.maxkrass.stundenplankotlinrefactor.choosesubject.ChooseSubjectFragment
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
-import com.maxkrass.stundenplankotlinrefactor.managesubjects.ManageSubjectsFragment
+import com.maxkrass.stundenplankotlinrefactor.extensions.SingleLiveEvent
+import com.maxkrass.stundenplankotlinrefactor.extensions.show
 import kotlinx.android.synthetic.main.activity_create_lesson.*
-
+import org.jetbrains.anko.imageResource
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.textResource
 
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
-class CreateLessonActivity : AppCompatActivity(),
-                             CreateLessonFragment.OnChooseSubjectListener,
-                             ManageSubjectsFragment.OnSubjectChosenListener {
+class CreateLessonActivity : AppCompatActivity(), ChooseSubjectFragment.OnSubjectChosenListener {
 
-    private var color: Int = 0
-
-    private val createLessonTag = "create_lesson_fragment"
-
-    private val createLessonFragment: CreateLessonFragment by lazy {
-        findFragmentByTag(createLessonTag) {
-            val newFragment = CreateLessonFragment.getInstance(
-                    /*getUid*/ "",
-                               intent.getSerializableExtra("lesson") as Lesson?,
-                               intent.getBooleanExtra("doublePeriod"))
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_fragment_container, newFragment)
-                    .commit()
-            newFragment
-        }
+    companion object {
+        val mainActionClickEvent = SingleLiveEvent<View>()
+        val addSubjectFabClickEvent = SingleLiveEvent<View>()
+        val subjectChosenEvent = SingleLiveEvent<Subject?>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_lesson)
-        save_lesson.setOnClickListener(createLessonFragment)
+
+        findNavController(R.id.create_lesson_nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.chooseSubjectFragment -> {
+                    cancel_lesson.imageResource = R.drawable.ic_arrow_back_24dp
+                    save_lesson.textResource = R.string.action_none
+                    create_lesson_title.textResource = R.string.select_subject
+                    add_subject_fab.show()
+                }
+                R.id.createLessonFragment -> {
+                    cancel_lesson.imageResource = R.drawable.ic_clear_24dp
+                    save_lesson.textResource = R.string.action_save
+                    create_lesson_title.textResource = R.string.new_lesson_title
+                    add_subject_fab.hide()
+                }
+            }
+        }
+
+        add_subject_fab.setOnClickListener { addSubjectFabClickEvent.call(it) }
+        save_lesson.setOnClickListener { mainActionClickEvent.call(it) }
+
         resetCancelClickListener()
-        //color = Color.LIGHT_GREEN.getColor(this)
     }
 
-    fun onClick(view: View) {
-        if (view is CheckBoxWidget)
-            view.toggle()
-        else if (view.id == R.id.cancel_lesson)
-            NavUtils.navigateUpFromSameTask(this)
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActionClickEvent.removeObservers(this)
+        addSubjectFabClickEvent.removeObservers(this)
+        subjectChosenEvent.removeObservers(this)
     }
+
+    override fun onSupportNavigateUp(): Boolean =
+            findNavController(R.id.create_lesson_nav_host_fragment).navigateUp()
 
     private fun animateAppAndStatusBar(fromColor: Int, toColor: Int) {
 
@@ -83,52 +89,12 @@ class CreateLessonActivity : AppCompatActivity(),
         reveal.show()
     }
 
-    override fun onSubjectChosen(subject: Subject) {
-        restoreView()
-        val newColor = subject.colorInt
-        animateAppAndStatusBar(color, newColor)
-        color = newColor
-        createLessonFragment.onSubjectChosen(subject)
+    override fun onSubjectChosen(subject: Subject?) {
+        findNavController(R.id.create_lesson_nav_host_fragment).navigateUp()
+        subjectChosenEvent.call(subject)
     }
 
-    override fun onNoneChosen() {
-        restoreView()
-        createLessonFragment.onNoSubjectChosen()
-    }
-
-    fun onRequestChooseSubject() {
-        val manageSubjectsFragment = ManageSubjectsFragment()
-        val bundle = Bundle()
-        bundle.putBoolean("select", true)
-        manageSubjectsFragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.main_fragment_container, manageSubjectsFragment)
-                .addToBackStack(null)
-                .commit()
-        create_lesson_title.setText(R.string.choose_subject_title)
-        save_lesson.setText(R.string.action_none)
-        save_lesson.setOnClickListener { onNoneChosen() }
-        cancel_lesson.setImageResource(R.drawable.ic_arrow_back_24dp)
-        cancel_lesson.setOnClickListener { restoreView() }
-    }
-
-    private fun restoreView() {
-        supportFragmentManager.apply {
-            popBackStack()
-            beginTransaction().apply {
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                replace(R.id.main_fragment_container, createLessonFragment)
-            }.commit()
-        }
-        create_lesson_title.setText(R.string.new_lesson_title)
-        save_lesson.setText(R.string.action_save)
-        save_lesson.setOnClickListener(createLessonFragment)
-        cancel_lesson.setImageResource(R.drawable.ic_clear_24dp)
-        resetCancelClickListener()
-    }
-
-    private fun resetCancelClickListener() = cancel_lesson.setOnClickListener {
-        NavUtils.navigateUpFromSameTask(this)
+    private fun resetCancelClickListener() = cancel_lesson.onClick {
+        findNavController(R.id.create_lesson_nav_host_fragment).navigateUp()
     }
 }

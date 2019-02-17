@@ -12,7 +12,5 @@ object GradeCalculatorContract {
     interface View : TiView {
 
         fun subjectsLoaded(subjects: Subjects)
-
     }
-
 }

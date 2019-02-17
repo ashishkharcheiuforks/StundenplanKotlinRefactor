@@ -9,7 +9,7 @@
 		android:layout_height="24dp"
 		android:layout_gravity="center_vertical"
 		android:layout_marginStart="16dp"
-		android:background="@drawable/color_icon" />
+		android:background="@drawable/color_icon_unselected" />
 
 	<TextView
 		android:id="@+id/name"

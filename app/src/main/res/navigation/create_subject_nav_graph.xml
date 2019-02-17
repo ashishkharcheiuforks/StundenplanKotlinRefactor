@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/create_subject_nav_graph"
+    app:startDestination="@id/createSubjectFragment">
+
+    <fragment
+        android:id="@+id/createSubjectFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.createsubject.CreateSubjectFragment"
+        android:label="CreateSubjectFragment" >
+        <action
+            android:id="@+id/action_choose_teacher"
+            app:destination="@id/chooseTeacherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseTeacherFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.chooseteacher.ChooseTeacherFragment"
+        android:label="ChooseTeacherFragment" />
+</navigation>

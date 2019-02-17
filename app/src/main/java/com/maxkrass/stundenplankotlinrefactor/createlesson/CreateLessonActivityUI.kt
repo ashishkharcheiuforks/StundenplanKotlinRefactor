@@ -5,22 +5,19 @@ import android.view.Gravity
 import android.view.View
 import com.google.android.material.appbar.AppBarLayout
 import com.maxkrass.stundenplankotlinrefactor.R
-import com.maxkrass.stundenplankotlinrefactor.extensions.endPadding
-import com.maxkrass.stundenplankotlinrefactor.extensions.startPadding
-import com.maxkrass.stundenplankotlinrefactor.extensions.textAppearanceResource
+import com.maxkrass.stundenplankotlinrefactor.extensions.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.design.appBarLayout
-import org.jetbrains.anko.design.coordinatorLayout
 
 /**
  * Max made this for StundenplanKotlinRefactor on 25.07.2017.
  */
+@Suppress("MagicNumber")
 class CreateLessonActivityUI : AnkoComponent<CreateLessonActivity> {
     override fun createView(ui: AnkoContext<CreateLessonActivity>): View = with(ui) {
         coordinatorLayout {
 
             frameLayout {
-                id = R.id.main_fragment_container
+                // id = R.id.main_fragment_container
             }.lparams(matchParent, matchParent) {
                 behavior = AppBarLayout.ScrollingViewBehavior()
             }
@@ -60,7 +57,7 @@ class CreateLessonActivityUI : AnkoComponent<CreateLessonActivity> {
 
                         textView(R.string.new_lesson_title) {
                             id = R.id.create_lesson_title
-                            textAppearanceResource = R.style.TextAppearance_AppCompat_Title
+                            textAppearanceResource = R.style.TextAppearance_MaterialComponents_Headline6
                         }.lparams(width = wrapContent, height = wrapContent) {
                             marginStart = dip(16)
                         }
@@ -70,17 +67,14 @@ class CreateLessonActivityUI : AnkoComponent<CreateLessonActivity> {
                             backgroundResource = android.R.attr.selectableItemBackgroundBorderless
                             isClickable = true
                             padding = dip(16)
-                            textAppearanceResource = R.style.TextAppearance_AppCompat_Button
+                            textAppearanceResource = R.style.TextAppearance_MaterialComponents_Button
                             gravity = Gravity.CENTER
                         }.lparams(width = wrapContent, height = wrapContent, gravity = Gravity.END)
 
                         TODO("Finish this Layout")
                     }.lparams(width = matchParent, height = dip(80))
-
                 }
-
             }
-
         }
     }
 }

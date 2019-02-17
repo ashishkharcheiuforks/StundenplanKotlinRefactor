@@ -10,19 +10,18 @@ import com.maxkrass.stundenplankotlinrefactor.data.Lessons
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
 import com.maxkrass.stundenplankotlinrefactor.data.Subjects
 
-
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
 const val MAX_NUMBER_OF_LESSONS = 10
 
-internal class CustomFirebaseArray(private val mLessonQuery: Query, private val mUid: String?) : ValueEventListener {
+internal class CustomFirebaseArray(private val mLessonQuery: Query, private val mUid: String) : ValueEventListener {
     private var mListener: ((Lessons, Subjects) -> Unit)? = null
     private val mLessons: SparseArray<Lesson> = SparseArray(MAX_NUMBER_OF_LESSONS)
 
     init {
         mLessonQuery.addValueEventListener(this)
-    }//mLessonQuery.orderByValue();
+    } // mLessonQuery.orderByValue();
 
     fun cleanup() {
         mLessonQuery.removeEventListener(this)
@@ -60,7 +59,7 @@ internal class CustomFirebaseArray(private val mLessonQuery: Query, private val 
                     .child(mUid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(subjectSnapshot: DataSnapshot) {
-                            val mSubjects = Subjects()
+                            val mSubjects: Subjects = mutableMapOf()
                             if (subjectSnapshot.exists() && subjectSnapshot.hasChildren()) {
                                 subjectSnapshot.children
                                         .mapNotNull { it.getValue<Subject>(Subject::class.java) }
@@ -70,13 +69,10 @@ internal class CustomFirebaseArray(private val mLessonQuery: Query, private val 
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {
-
                         }
                     })
         }
     }
 
     override fun onCancelled(firebaseError: DatabaseError) {}
-
-
 }

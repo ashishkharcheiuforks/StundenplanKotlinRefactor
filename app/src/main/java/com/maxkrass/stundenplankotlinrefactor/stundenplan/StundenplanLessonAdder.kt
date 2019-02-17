@@ -32,5 +32,4 @@ object StundenplanLessonAdder {
 
         stundenplanAdapter.containers[weekday].addView(lessonView)
     }
-
 }

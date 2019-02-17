@@ -11,9 +11,10 @@ typealias TeacherName = String
 typealias TeacherContraction = String
 
 data class Teacher(
-        val name: TeacherName,
-        val contraction: TeacherContraction,
-        val subjects: TeacherSubjects) : Serializable, Comparable<Teacher> {
+    val name: TeacherName,
+    val contraction: TeacherContraction,
+    val subjects: TeacherSubjects
+) : Serializable, Comparable<Teacher> {
 
     init {
         if (contraction.isEmpty())
@@ -25,5 +26,4 @@ data class Teacher(
 
     override fun compareTo(other: Teacher): Int =
             name.compareTo(other = other.name)
-
 }

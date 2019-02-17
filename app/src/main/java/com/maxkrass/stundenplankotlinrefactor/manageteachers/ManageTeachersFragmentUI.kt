@@ -1,14 +1,13 @@
 package com.maxkrass.stundenplankotlinrefactor.manageteachers
 
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewTreeObserver
 import com.maxkrass.stundenplankotlinrefactor.R.id.teachers_recycler_view
+import com.maxkrass.stundenplankotlinrefactor.extensions.recyclerView
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.frameLayout
 import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 /**
  * Max made this for StundenplanKotlinRefactor on 10.10.2017.
@@ -21,7 +20,7 @@ class ManageTeachersFragmentUI : AnkoComponent<ManageTeachersFragment> {
             recyclerView {
                 id = teachers_recycler_view
                 clipToPadding = false
-                layoutManager = LinearLayoutManager(ctx)
+                layoutManager = androidx.recyclerview.widget.LinearLayoutManager(ctx)
                 setHasFixedSize(true)
 
                 adapter = owner.presenter.teachersAdapter
@@ -29,16 +28,13 @@ class ManageTeachersFragmentUI : AnkoComponent<ManageTeachersFragment> {
                 viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
                         viewTreeObserver.removeOnPreDrawListener(this)
-                        owner.activity.startPostponedEnterTransition()
+                        owner.activity?.startPostponedEnterTransition()
                         return true
                     }
                 })
 
                 lparams(width = matchParent, height = matchParent)
             }
-
         }
-
     }
-
 }

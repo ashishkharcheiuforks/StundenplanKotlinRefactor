@@ -8,15 +8,17 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
 import com.maxkrass.stundenplankotlinrefactor.extensions.SingleLineSubjectListItem
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onLongClick
 import splitties.typesaferecyclerview.ItemViewHolder
-
 
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
 class FirestoreSubjectAdapter(
         options: FirestoreRecyclerOptions<Subject>,
-        private val host: SubjectViewHolder.Host) :
+        private val host: SubjectViewHolder.Host
+) :
         FirestoreRecyclerAdapter<Subject, FirestoreSubjectAdapter.SubjectViewHolder>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder =
@@ -35,8 +37,8 @@ class FirestoreSubjectAdapter(
         override fun SingleLineSubjectListItem.onBind() {
             (subjectColor.background as GradientDrawable).setColor(data.colorInt)
             subjectName.text = data.name
-            setOnClickListener(itemClickListener)
-            setOnLongClickListener(itemLongClickListener)
+            onClick { itemClickListener }
+            onLongClick { itemLongClickListener }
         }
 
         private val itemClickListener = View.OnClickListener {
@@ -51,7 +53,5 @@ class FirestoreSubjectAdapter(
             fun onSubjectClicked(subject: Subject)
             fun onSubjectLongClicked(subject: Subject): Boolean
         }
-
     }
-
 }

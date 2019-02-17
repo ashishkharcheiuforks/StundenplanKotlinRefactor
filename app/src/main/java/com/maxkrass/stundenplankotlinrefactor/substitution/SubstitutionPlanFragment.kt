@@ -1,42 +1,35 @@
 package com.maxkrass.stundenplankotlinrefactor.substitution
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.tabs.TabLayout
 import com.maxkrass.stundenplankotlinrefactor.R
+import com.maxkrass.stundenplankotlinrefactor.commons.SubstitutionPlanView
+import com.maxkrass.stundenplankotlinrefactor.extensions.viewPager
 import com.maxkrass.stundenplankotlinrefactor.main.MainActivityFragment
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.ctx
-import org.jetbrains.anko.support.v4.viewPager
 
-class SubstitutionPlanFragment : MainActivityFragment<SubstitutionPlanPresenter, SubstitutionPlanView>(), SubstitutionPlanView {
-    override val showsTabs: Boolean
-        get() = true
+class SubstitutionPlanFragment :
+        MainActivityFragment<SubstitutionPlanPresenter, SubstitutionPlanView>(),
+        SubstitutionPlanView {
 
-    override fun providePresenter(): SubstitutionPlanPresenter {
-        return SubstitutionPlanPresenter()
-    }
-
-    override val toolbarTitle: String
-        get() = "Substitutin Plan"
+    override fun providePresenter() = SubstitutionPlanPresenter()
 
     private val mainTabLayout by lazy { requireActivity().find<TabLayout>(R.id.main_tab_layout) }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? = with(ctx) {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View = with(requireContext()) {
         super.onCreateView(inflater, container, savedInstanceState)
-        val pager = viewPager {
+        return viewPager {
             id = R.id.substitution_plan_view_pager
-            adapter = SubstitutionPlanPagerAdapter(childFragmentManager,
-                                                   uid,
-                                                   mainTabLayout)
+            adapter = SubstitutionPlanPagerAdapter(this@with, childFragmentManager, mainTabLayout)
             offscreenPageLimit = 2
+            mainTabLayout.setupWithViewPager(this)
         }
-        mainTabLayout.setupWithViewPager(pager)
-        return pager
     }
-
 }

@@ -1,8 +1,8 @@
 package com.maxkrass.stundenplankotlinrefactor.data
 
-import org.hamcrest.CoreMatchers.`is`
-import org.junit.Assert.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Test
+
 
 /**
  * Max made this for StundenplanKotlinRefactor on 19.11.2017.
@@ -12,15 +12,11 @@ class GradeTest {
     @Test
     fun getGradeByCorrectString() {
 
-        assertThat(Grade.valueOf("EF"), `is`(Grade.EF))
-
+        assertSame(Grade.EF, Grade.valueOf("EF"))
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    /*@Test
     fun getGradeByWrongString() {
-
-        Grade.valueOf("WRONG")
-
-    }
-
+        assertThrows<java.lang.IllegalArgumentException> { Grade.valueOf("WRONG") }
+    }*/
 }

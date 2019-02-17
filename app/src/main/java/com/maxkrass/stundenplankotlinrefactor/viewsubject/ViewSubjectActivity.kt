@@ -28,5 +28,4 @@ class ViewSubjectActivity : BaseActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

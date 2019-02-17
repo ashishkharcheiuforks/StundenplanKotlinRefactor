@@ -1,18 +1,21 @@
 apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.fabric'
+
 android {
-    compileSdkVersion "android-P"
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.maxkrass.stundenplankotlinrefactor"
         minSdkVersion 21
-        targetSdkVersion "android-P"
+        targetSdkVersion 28
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -38,21 +41,24 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'androidx.annotation', module: 'annotation'
     })
-    testImplementation 'junit:junit:4.12'
+    // include JUnit 5 assertions
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
 
     // Android Support Library
-    implementation "androidx.browser:browser:$androidx_version"
-    implementation "androidx.appcompat:appcompat:$androidx_version"
-    implementation "androidx.core:core:$androidx_version"
-    implementation "androidx.cardview:cardview:$androidx_version"
-    implementation "com.google.android.material:material:$androidx_version"
+    implementation "androidx.browser:browser:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.core:core:1.1.0-alpha04"
+    implementation "androidx.preference:preference:1.1.0-alpha03"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "com.google.android.material:material:1.1.0-alpha03"
 
     // Constraint Layout
-    implementation 'androidx.constraintlayout:constraintlayout-solver:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout-solver:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // Thirty Inch
     implementation "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinch_version"
+    implementation "net.grandcentrix.thirtyinch:thirtyinch-kotlin:$thirtyinch_version"
 
     // Anko (ANdroid KOtlin)
     implementation "org.jetbrains.anko:anko:$anko_version"
@@ -66,22 +72,30 @@ dependencies {
     // Anko Design
     implementation "org.jetbrains.anko:anko-design:$anko_version"
     implementation "org.jetbrains.anko:anko-design-coroutines:$anko_version"
-    def lifecycle_version = "2.0.0-alpha1"
+
+    def lifecycle_version = "2.0.0-beta01"
 
     // Android architecture
     implementation "androidx.lifecycle:lifecycle-common:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.0.0"
+
+    def nav_version = "1.0.0-beta02"
+
+    implementation "android.arch.navigation:navigation-common-ktx:$nav_version"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version" // use -ktx for Kotlin
 
     // Firebase
-    implementation 'com.google.firebase:firebase-database:15.0.1'
-    implementation 'com.google.firebase:firebase-auth:15.1.0'
-    implementation "com.google.firebase:firebase-config:$firebase_version"
-    implementation "com.google.firebase:firebase-crash:$firebase_version"
-    implementation 'com.google.firebase:firebase-core:15.0.2'
-    implementation "com.google.firebase:firebase-messaging:$firebase_version"
-    implementation 'com.google.firebase:firebase-firestore:16.0.0'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation "com.google.firebase:firebase-config:16.1.0"
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation "com.google.firebase:firebase-messaging:17.3.4"
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
+
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 
     // FirebaseUI
     implementation "com.firebaseui:firebase-ui-database:$firebase_ui_version"
@@ -97,18 +111,16 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     // KoDeIn (KOtlin DEpendecy INjection)
-    implementation 'org.kodein.di:kodein-di-generic-jvm:5.0.0'
-    implementation 'org.kodein.di:kodein-di-framework-android:5.0.0'
+    implementation 'org.kodein.di:kodein-di-generic-jvm:6.1.0'
+    //implementation 'org.kodein.di:kodein-di-framework-android-core:5.2.0'
+    implementation 'org.kodein.di:kodein-di-framework-android-x:6.1.0'
 
     // LiteUtilities
     implementation 'com.github.gurleensethi:LiteUtilities:v1.3.0'
 
     // Android KTX
-    implementation "androidx.core:core-ktx:$androidx_version"
-}
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
+    implementation "androidx.core:core-ktx:1.0.1"
+    implementation "androidx.fragment:fragment-ktx:1.0.0"
+    implementation "androidx.collection:collection-ktx:1.0.0"
 }
 apply plugin: 'com.google.gms.google-services'

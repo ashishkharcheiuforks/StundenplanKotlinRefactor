@@ -28,7 +28,7 @@ abstract class ItemViewHolder<Data : Any, V : View, Host>(protected val host: Ho
      * @see data
      * @see bind
      */
-    abstract protected fun V.onBind()
+    protected abstract fun V.onBind()
 
     /** To be called from your [RecyclerView.Adapter.onBindViewHolder] implementation. */
     fun bind(newData: Data) {

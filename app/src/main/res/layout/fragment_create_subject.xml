@@ -8,10 +8,12 @@
 	android:padding="16dp">
 
 	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/subject_name_layout"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<EditText
+		<com.google.android.material.textfield.TextInputEditText
 			android:id="@+id/subject_name"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -20,18 +22,22 @@
 	</com.google.android.material.textfield.TextInputLayout>
 
 	<com.google.android.material.textfield.TextInputLayout
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
 		app:counterEnabled="true"
-		app:counterMaxLength="5">
+		app:counterMaxLength="5"
+		android:id="@+id/subject_abbr_layout"
+		android:layout_height="wrap_content">
 
-		<EditText
+		<com.google.android.material.textfield.TextInputEditText
 			android:id="@+id/subject_abbr"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:ems="3"
-			android:hint="@string/subject_abbr"
-			android:maxLength="5" />
+			android:maxLength="5"
+			android:minWidth="96dp"
+			android:maxLines="1"
+			android:hint="@string/subject_abbr" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -40,14 +46,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
 		android:layout_marginTop="16dp"
-		android:background="?android:selectableItemBackground"
-		android:clickable="true"
-		android:focusable="true">
+		style="@style/Selectable">
 
 		<ImageView
 			android:layout_width="24dp"
 			android:layout_height="24dp"
 			android:layout_gravity="center_vertical"
+			style="@style/NotSelectable"
 			android:src="@drawable/ic_person_24dp" />
 
 		<TextView
@@ -56,6 +61,8 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="56dp"
+			android:text="@string/choose_teacher"
+			style="@style/NotSelectable"
 			android:textSize="16sp" />
 
 	</FrameLayout>
@@ -64,15 +71,14 @@
 		android:id="@+id/choose_color"
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
-		android:background="?android:selectableItemBackground"
-		android:clickable="true"
-		android:focusable="true">
+		style="@style/Selectable">
 
 		<View
 			android:id="@+id/color_icon"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
 			android:layout_gravity="center_vertical"
+			style="@style/NotSelectable"
 			android:background="@drawable/color_icon" />
 
 		<TextView
@@ -81,6 +87,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="56dp"
+			style="@style/NotSelectable"
 			android:text="@string/choose_color"
 			android:textSize="16sp" />
 

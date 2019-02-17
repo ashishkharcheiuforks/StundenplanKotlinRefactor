@@ -10,11 +10,12 @@ typealias LessonKey = String
 typealias LessonWeekday = String
 
 data class Lesson(
-        var subject: SubjectName,
-        var weekday: LessonWeekday,
-        var period: PeriodIndex,
-        var location: LessonLocation,
-        var key: LessonKey) : Serializable, Comparable<Lesson>, FirebaseEntity {
+    var subject: SubjectName,
+    var weekday: LessonWeekday,
+    var period: PeriodIndex,
+    var location: LessonLocation,
+    var key: LessonKey
+) : Serializable, Comparable<Lesson>, FirebaseEntity {
 
     constructor() : this(
             subject = "No Lesson Subject",
@@ -40,5 +41,4 @@ data class Lesson(
             } else {
                 weekday.compareTo(other = other.weekday)
             }
-
 }

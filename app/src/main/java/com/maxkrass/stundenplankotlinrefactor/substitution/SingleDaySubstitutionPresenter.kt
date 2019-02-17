@@ -1,50 +1,56 @@
 package com.maxkrass.stundenplankotlinrefactor.substitution
 
-import com.google.firebase.database.FirebaseDatabase
 import com.maxkrass.stundenplankotlinrefactor.data.Grade
 import com.maxkrass.stundenplankotlinrefactor.data.SubstitutionEvent
-import com.maxkrass.stundenplankotlinrefactor.extensions.addSingleEventListener
-import com.maxkrass.stundenplankotlinrefactor.extensions.getTypedValue
 import net.grandcentrix.thirtyinch.TiPresenter
+import net.grandcentrix.thirtyinch.kotlin.deliverToView
 
 /**
  * Max made this for Stundenplan2 on 02.05.2017.
  */
 
-class SingleDaySubstitutionPresenter(
-        uid: String,
-        index: Int) :
+class SingleDaySubstitutionPresenter(uid: String, index: Int) :
         TiPresenter<SingleDaySubstitutionContract.View>(),
         SingleDaySubstitutionContract.Presenter {
 
-    private val mSubstitutionModel = SingleDaySubstitutionRepository(this, uid).apply {
+    override fun onSubstitutionDayLoaded(day: String) {
+        deliverToView { setTabTitle(day) }
+    }
+
+    override fun onConnectionError() {
+        deliverToView { showConnectionError() }
+    }
+
+    override fun onSubstitutionEventsLoaded(events: List<SubstitutionEvent>) {
+        mLastEvents.clear()
+        mLastEvents.addAll(events)
+
+        deliverToView { updateList(mLastEvents) }
+    }
+
+    private val mSubstitutionModel = SingleDaySubstitutionRepository(this, uid, index).apply {
         loadSubstitutionSubjects()
     }
-    private var mSubstitutionSubjects: Map<String, String>? = null
+    private val mSubstitutionSubjects: MutableMap<String, String> = mutableMapOf()
     private val substitutionSubjects = mutableMapOf<String, Grade>()
     private val mLastEvents: MutableList<SubstitutionEvent> = mutableListOf()
-    private val mSubstitutionDayRef = FirebaseDatabase
-            .getInstance()
-            .reference
-            .child("stundenplan")
-            .child("latestSubstitutionPlans")
-            .child("day$index")
 
     override fun onSubstitutionSubjectsLoaded(substitutionSubjects: Map<String, String>) {
-        mSubstitutionSubjects = substitutionSubjects
+        with(mSubstitutionSubjects) {
+            clear()
+            putAll(substitutionSubjects)
+        }
     }
 
     fun addSubstitutionSubjectClicked() {
-        view?.let { view ->
-            if (view.selectedEvent.item.subject.isNotBlank() && view.selectedEvent.item.grade != Grade.None) {
-                substitutionSubjects[view.selectedEvent.item.subject] = view.selectedEvent.item.grade
+        deliverToView {
+            if (selectedEvent.item.subject.isNotBlank() && selectedEvent.item.grade != Grade.None) {
+                substitutionSubjects[selectedEvent.item.subject] = selectedEvent.item.grade
                 mSubstitutionModel.updateSubstitutionSubjects(substitutionSubjects) {
-                    view.updateList(mLastEvents)
+                    updateList(mLastEvents)
                 }
             }
         }
-
-
     }
 
     override fun onAttachView(view: SingleDaySubstitutionContract.View) {
@@ -53,35 +59,8 @@ class SingleDaySubstitutionPresenter(
     }
 
     fun refreshItems() {
-        view?.showLoading()
-        mSubstitutionDayRef.child("plan").addSingleEventListener {
-            onDataChange { snapshot ->
-                val events: List<@JvmSuppressWildcards SubstitutionEvent>? = snapshot.getTypedValue()
-                mLastEvents.clear()
-                if (events?.isNotEmpty() == true) {
-                    mLastEvents.addAll(events)
-                }
-                view?.updateList(mLastEvents)
-            }
+        deliverToView { showLoading() }
 
-            onCancelled {
-                view?.showConnectionError()
-            }
-        }
-
-        mSubstitutionDayRef.child("correspondingDate").addSingleEventListener {
-            onDataChange { snapshot ->
-                val dateDay = snapshot.getValue(String::class.java)
-                if (dateDay?.isNotBlank() == true) {
-                    val day = dateDay
-                            .split(" ")
-                            .dropLastWhile { it.isEmpty() }
-                            .toTypedArray()[1]
-                    if (day.isNotBlank()) {
-                        view?.setTabTitle(day)
-                    }
-                }
-            }
-        }
+        mSubstitutionModel.loadSubstitutions()
     }
 }

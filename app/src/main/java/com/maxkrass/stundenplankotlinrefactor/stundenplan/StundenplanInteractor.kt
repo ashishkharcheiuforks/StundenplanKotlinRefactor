@@ -22,14 +22,7 @@ import org.jetbrains.anko.info
 class StundenplanInteractor : IStundenplanInteractor, AnkoLogger {
 
     private val mUid by lazy {
-        FirebaseAuth.getInstance().currentUser?.uid
-    }
-    private val mPeriodRef by lazy {
-        FirebaseDatabase
-                .getInstance()
-                .reference
-                .child("stundenplan")
-                .child("publicPeriods")
+        FirebaseAuth.getInstance().currentUser?.uid ?: ""
     }
 
     private val mLessonRef by lazy {
@@ -41,25 +34,27 @@ class StundenplanInteractor : IStundenplanInteractor, AnkoLogger {
     }
 
     override fun loadLessons(onLessonLoadedListener: IStundenplanInteractor.OnLessonLoadedListener) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun loadLessons(weekday: Weekday,
-                             onLessonsLoadedListener: IStundenplanInteractor.OnLessonsLoadedListener) {
+    override fun loadLessons(
+        weekday: Weekday,
+        onLessonsLoadedListener: IStundenplanInteractor.OnLessonsLoadedListener
+    ) {
         mLessonRef.orderByChild("weekday")
                 .equalTo(weekday.toString())
                 .addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(databaseError: DatabaseError?) {
+                    override fun onCancelled(databaseError: DatabaseError) {
                         onLessonsLoadedListener.onLoadingError()
                     }
 
-                    override fun onDataChange(subjectSnapshot: DataSnapshot?) {
+                    override fun onDataChange(subjectSnapshot: DataSnapshot) {
                         info("data changed")
                         val lessons = SparseArray<Lesson>()
                         subjectSnapshot
-                                ?.children
-                                ?.mapNotNull { it.getValue(Lesson::class.java) }
-                                ?.forEach { lesson -> lessons.put(lesson.period, lesson) }
+                                .children
+                                .mapNotNull { it.getValue(Lesson::class.java) }
+                                .forEach { lesson -> lessons.put(lesson.period, lesson) }
 
                         info("${lessons.size()} lesson(s) loaded")
                         if (lessons.isNotEmpty()) {
@@ -68,17 +63,16 @@ class StundenplanInteractor : IStundenplanInteractor, AnkoLogger {
                                     .child("subjects")
                                     .child(mUid)
                                     .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onCancelled(p0: DatabaseError?) {
+                                        override fun onCancelled(p0: DatabaseError) {
                                             onLessonsLoadedListener.onLoadingError()
                                         }
 
-                                        override fun onDataChange(p0: DataSnapshot?) {
-                                            val subjects = Subjects()
-                                            p0?.children
-                                                    ?.mapNotNull { it.getValue(Subject::class.java) }
-                                                    ?.forEach { subject ->
-                                                        subjects.put(subject.name,
-                                                                     subject)
+                                        override fun onDataChange(p0: DataSnapshot) {
+                                            val subjects: Subjects = mutableMapOf()
+                                            p0.children
+                                                    .mapNotNull { it.getValue(Subject::class.java) }
+                                                    .forEach { subject ->
+                                                        subjects[subject.name] = subject
                                                     }
                                             info("${subjects.size} subject(s) loaded")
                                             if (subjects.isNotEmpty()) {
@@ -87,12 +81,9 @@ class StundenplanInteractor : IStundenplanInteractor, AnkoLogger {
                                                                          subjects = subjects)
                                             }
                                         }
-
                                     })
                         }
                     }
-
                 })
     }
-
 }

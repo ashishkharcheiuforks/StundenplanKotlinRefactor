@@ -23,19 +23,16 @@ object SingleDaySubstitutionContract {
         fun showConnectionError()
 
         fun setTabTitle(title: String)
-
     }
 
     interface Presenter {
 
         fun onSubstitutionSubjectsLoaded(substitutionSubjects: Map<String, String>)
 
-    }
+        fun onSubstitutionEventsLoaded(events: List<SubstitutionEvent>)
 
-    interface ModelPresenter {
-
-        fun onSubstitutionSubjectsLoaded(substitutionSubjects: Map<String, String>)
-
+        fun onConnectionError()
+        fun onSubstitutionDayLoaded(day: String)
     }
 
 }

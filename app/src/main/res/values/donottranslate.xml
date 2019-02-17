@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="app_name" translatable="false">StundenplanKotlinRefactor</string>
+	<string name="fab_behavior" translatable="false">com.maxkrass.stundenplan.ScrollingFloatingActionButtonBehavior</string>
+	<string name="main_app_bar_layout_transition_name" translatable="false">main_toolbar</string>
+	<string name="grade_back" translatable="false"><![CDATA[<-]]></string>
+	<string name="q2" translatable="false">Q2</string>
+	<string name="q1" translatable="false">Q1</string>
+	<string name="ef" translatable="false">EF</string>
+	<string name="hyphen" translatable="false">-</string>
+	<string name="one" translatable="false">1</string>
+	<string name="two" translatable="false">2</string>
+	<string name="three" translatable="false">3</string>
+	<string name="four" translatable="false">4</string>
+	<string name="five" translatable="false">5</string>
+	<string name="six" translatable="false">6</string>
+	<string name="seven" translatable="false">7</string>
+	<string name="eight" translatable="false">8</string>
+	<string name="nine" translatable="false">9</string>
+	<string name="ten" translatable="false">10</string>
 	<string-array name="dialog_options">
 		<item>Edit</item>
 		<item>Delete</item>

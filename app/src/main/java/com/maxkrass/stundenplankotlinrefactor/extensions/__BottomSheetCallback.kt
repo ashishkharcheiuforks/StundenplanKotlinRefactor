@@ -26,7 +26,6 @@ class __BottomSheetCallback : BottomSheetBehavior.BottomSheetCallback() {
     fun onStateChanged(func: (bottomSheet: View, newState: Int) -> Unit) {
         _onStateChanged = func
     }
-
 }
 
 inline fun <T : View> BottomSheetBehavior<T>.setBottomSheetCallback(func: __BottomSheetCallback.() -> Unit) {

@@ -5,26 +5,26 @@
 
 	<item
 		android:checked="true"
-		android:id="@+id/drawer_main_item"
+		android:id="@+id/stundenplanFragment"
 		android:title="@string/action_timetable" />
 	<item
 		android:enabled="true"
-		android:id="@+id/drawer_substitution_item"
+		android:id="@+id/substitutionPlanFragment"
 		android:title="@string/action_substitutionplan"/>
 	<item
 		android:enabled="true"
-		android:id="@+id/drawer_teachers_item"
+		android:id="@+id/manageTeachersFragment"
 		android:title="@string/action_teachers" />
 	<item
-		android:id="@+id/drawer_subjects_item"
+		android:id="@+id/manageSubjectsFragment"
 		android:title="@string/action_subjects" />
 	<item
 		android:enabled="true"
-		android:id="@+id/drawer_grade_calculator_item"
+		android:id="@+id/gradeCalculatorFragment"
 		android:title="@string/grade_calculator" />
 	<item
 		android:enabled="true"
-		android:id="@+id/drawer_settings_item"
+		android:id="@+id/settingsFragment"
 		android:title="@string/action_settings" />
 
 </menu>

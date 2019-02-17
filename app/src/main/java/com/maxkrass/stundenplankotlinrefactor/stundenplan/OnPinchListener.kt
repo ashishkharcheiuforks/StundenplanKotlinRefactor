@@ -5,7 +5,7 @@ import android.view.ScaleGestureDetector
 /**
  * Max made this for StundenplanKotlinRefactor on 18.07.2017.
  */
-class OnPinchListener(val adapter: StundenplanAdapter) : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+class OnPinchListener(private val adapter: StundenplanAdapter) : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
     private var startingSpan: Float = 0.0f
     private var mLastScalingFactor: Float = 1.0f

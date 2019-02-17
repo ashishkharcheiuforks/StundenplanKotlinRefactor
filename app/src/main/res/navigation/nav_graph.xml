@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/stundenplanFragment">
+
+    <fragment
+        android:id="@+id/stundenplanFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.stundenplan.StundenplanFragment"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_create_lesson"
+            app:destination="@id/createLessonActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageTeachersFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.manageteachers.ManageTeachersFragment"
+        android:label="@string/manage_teachers_title">
+        <action
+            android:id="@+id/action_manageTeachersFragment_to_viewTeacherActivity"
+            app:destination="@id/viewTeacherActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/viewTeacherActivity"
+        android:name="com.maxkrass.stundenplankotlinrefactor.viewteacher.ViewTeacherActivity"
+        android:label="ViewTeacherActivity" />
+    <fragment
+        android:id="@+id/manageSubjectsFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.managesubjects.ManageSubjectsFragment"
+        android:label="@string/action_subjects">
+        <action
+            android:id="@+id/action_create_subject"
+            app:destination="@id/createSubjectActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/createSubjectActivity"
+        android:name="com.maxkrass.stundenplankotlinrefactor.createsubject.CreateSubjectActivity"
+        android:label="CreateSubjectActivity" />
+    <fragment
+        android:id="@+id/substitutionPlanFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.substitution.SubstitutionPlanFragment"
+        android:label="@string/substitution_plan" />
+    <activity
+        android:id="@+id/createLessonActivity"
+        android:name="com.maxkrass.stundenplankotlinrefactor.createlesson.CreateLessonActivity"
+        android:label="@string/new_lesson_title" />
+    <fragment
+        android:id="@+id/gradeCalculatorFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.gradecalculator.GradeCalculatorFragment"
+        android:label="@string/grade_calculator" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.maxkrass.stundenplankotlinrefactor.settings.SettingsFragment"
+        android:label="@string/action_settings" />
+</navigation>

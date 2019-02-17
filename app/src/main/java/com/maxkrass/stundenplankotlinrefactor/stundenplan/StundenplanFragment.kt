@@ -5,28 +5,27 @@ import android.view.LayoutInflater
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.commons.IStundenplanView
-import com.maxkrass.stundenplankotlinrefactor.createlesson.CreateLessonActivity
 import com.maxkrass.stundenplankotlinrefactor.data.Lessons
 import com.maxkrass.stundenplankotlinrefactor.data.Subjects
+import com.maxkrass.stundenplankotlinrefactor.extensions.longSnackbar
 import com.maxkrass.stundenplankotlinrefactor.extensions.setBackgroundColorId
+import com.maxkrass.stundenplankotlinrefactor.main.MainActivity
 import com.maxkrass.stundenplankotlinrefactor.main.MainActivityFragment
 import kotlinx.android.synthetic.main.fragment_stundenplan.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import java.util.*
 
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
 class StundenplanFragment : MainActivityFragment<StundenplanPresenter, IStundenplanView>(),
-                            IStundenplanView,
-                            AnkoLogger {
-    override val showsTabs: Boolean by lazy { false }
-    override val toolbarTitle: String by lazy { getString(R.string.app_name) }
+        IStundenplanView,
+        AnkoLogger {
 
     override fun updateWeekdayColumn(lessons: Lessons, subjects: Subjects) {
         info("updating column")
@@ -34,7 +33,7 @@ class StundenplanFragment : MainActivityFragment<StundenplanPresenter, IStundenp
     }
 
     override fun showLoadingError() {
-        toast("Error while loading")
+        this.view?.longSnackbar("Error while loading")
     }
 
     override fun providePresenter(): StundenplanPresenter {
@@ -52,66 +51,31 @@ class StundenplanFragment : MainActivityFragment<StundenplanPresenter, IStundenp
         ))
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_stundenplan, container, false)
-    }
-
-    private val scrollChangeListener: () -> Unit by lazy {
-        {
-            when {
-                stundenplan_container.scrollY != 0 -> add_lesson.hide()
-                else                               -> add_lesson.show()
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        info("onStart")
-        //stundenplan_container.viewTreeObserver.addOnScrollChangedListener(scrollChangeListener)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        info("onStop")
-
-        //stundenplan_container.viewTreeObserver.removeOnScrollChangedListener(scrollChangeListener)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        add_lesson.setOnClickListener { startCreateLessonActivity() }
+        MainActivity.fabClickEvent.observe(this, Observer {
+            NavHostFragment.findNavController(this).navigate(R.id.action_create_lesson, null)
+        })
 
         stundenplan_container.setScaleDetector(ScaleGestureDetector(activity,
-                                                                    OnPinchListener(
-                                                                            stundenplanAdapter)))
-
-        //stundenplan_container.viewTreeObserver.addOnScrollChangedListener(scrollChangeListener)
+                OnPinchListener(stundenplanAdapter)))
 
         when (Calendar.getInstance()[Calendar.DAY_OF_WEEK]) {
-            Calendar.MONDAY    -> column_monday setBackgroundColorId R.color.divider_black
-            Calendar.TUESDAY   -> column_tuesday setBackgroundColorId R.color.divider_black
+            Calendar.MONDAY -> column_monday setBackgroundColorId R.color.divider_black
+            Calendar.TUESDAY -> column_tuesday setBackgroundColorId R.color.divider_black
             Calendar.WEDNESDAY -> column_wednesday setBackgroundColorId R.color.divider_black
-            Calendar.THURSDAY  -> column_thursday setBackgroundColorId R.color.divider_black
-            Calendar.FRIDAY    -> column_friday setBackgroundColorId R.color.divider_black
+            Calendar.THURSDAY -> column_thursday setBackgroundColorId R.color.divider_black
+            Calendar.FRIDAY -> column_friday setBackgroundColorId R.color.divider_black
         }
     }
-
-    private fun startCreateLessonActivity() {
-        startActivity<CreateLessonActivity>()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //mondayAdapter.cleanup()
-        //tuesdayAdapter.cleanup()
-        //wednesdayAdapter.cleanup()
-        //thursdayAdapter.cleanup()
-        //fridayAdapter.cleanup()
-    }
-
 }

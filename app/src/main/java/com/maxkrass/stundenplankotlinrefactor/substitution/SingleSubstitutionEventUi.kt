@@ -69,7 +69,6 @@ class SingleSubstitutionEventUi : AnkoComponent<SingleSubstitutionEventListItem>
                 bottomOf(R.id.substitution_text_upper)
                 sameStart(R.id.substitution_text_upper)
             }
-
         }
     }
 }

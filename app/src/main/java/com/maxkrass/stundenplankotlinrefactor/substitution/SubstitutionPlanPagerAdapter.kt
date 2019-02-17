@@ -1,39 +1,33 @@
 package com.maxkrass.stundenplankotlinrefactor.substitution
 
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerAdapter
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.factory
 
 /**
  * Max made this for Stundenplan2 on 16.07.2016.
  */
 
-class SubstitutionPlanPagerAdapter(fm: FragmentManager,
-                                   uId: String,
-                                   val tabLayout: TabLayout) : FragmentPagerAdapter(fm) {
+class SubstitutionPlanPagerAdapter(
+        context: Context,
+        fm: FragmentManager,
+        val tabLayout: TabLayout
+) : FragmentPagerAdapter(fm), KodeinAware {
 
-    private val fragment1: SingleDaySubstitutionFragment = SingleDaySubstitutionFragment.newInstance(1, uId, this)
-    private val fragment2: SingleDaySubstitutionFragment = SingleDaySubstitutionFragment.newInstance(2, uId, this)
-    private val fragment3: SingleDaySubstitutionFragment = SingleDaySubstitutionFragment.newInstance(3, uId, this)
+    override val kodein by kodein(context)
 
-    override fun getItem(position: Int): Fragment? = when (position) {
-        0    -> fragment1
-        1    -> fragment2
-        2    -> fragment3
-        else -> null
-    }
+    private val fragmentFactory: (Int) -> SingleDaySubstitutionFragment by factory("sdsf")
 
-    override fun getCount(): Int = 1
+    override fun getItem(position: Int): Fragment = fragmentFactory(position)
 
-    override fun getItemPosition(item: Any): Int = PagerAdapter.POSITION_UNCHANGED
+    override fun getCount(): Int = 3
 
-    override fun getPageTitle(position: Int): String = when (position) {
-        0    -> fragment1.title
-        1    -> fragment2.title
-        2    -> fragment3.title
-        else -> ""
-    }
+    override fun getItemPosition(item: Any): Int = androidx.viewpager.widget.PagerAdapter.POSITION_UNCHANGED
 
+    override fun getPageTitle(position: Int): String = fragmentFactory(position).title
 }

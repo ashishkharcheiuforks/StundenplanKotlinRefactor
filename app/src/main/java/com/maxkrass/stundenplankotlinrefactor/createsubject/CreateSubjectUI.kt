@@ -1,56 +1,25 @@
 package com.maxkrass.stundenplankotlinrefactor.createsubject
 
-import android.text.InputFilter
 import android.view.Gravity
 import android.view.View
+import android.widget.RelativeLayout
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.commons.Binder
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
 import com.maxkrass.stundenplankotlinrefactor.extensions.bind
 import org.jetbrains.anko.*
-import org.jetbrains.anko.design.textInputLayout
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 /**
  * Max made this for StundenplanKotlinRefactor on 10.10.2017.
  */
+@Suppress("MagicNumber")
 class CreateSubjectUI(private val bindSubject: Binder<Subject>) : AnkoComponent<CreateSubjectFragment> {
     override fun createView(ui: AnkoContext<CreateSubjectFragment>): View = with(ui) {
         verticalLayout {
             padding = dip(16)
 
-            textInputLayout {
-
-                editText {
-
-                    id = R.id.subject_name
-                    hintResource = R.string.subject_name
-                    bind(bindSubject) {
-                        setText(it.name)
-                    }
-
-                }
-
-            }.lparams(width = matchParent)
-
-            textInputLayout {
-
-                isCounterEnabled = true
-                counterMaxLength = 5
-
-                editText {
-
-                    id = R.id.subject_abbr
-                    hintResource = R.string.subject_abbr
-                    setEms(3)
-                    filters = arrayOf(InputFilter.LengthFilter(5))
-                    bind(bindSubject) {
-                        setText(it.abbreviation)
-                    }
-
-                }
-
-            }.lparams(width = wrapContent)
+            include<RelativeLayout>(R.layout.fragment_create_subject_inputs).lparams(width = matchParent)
 
             themedFrameLayout(R.style.Selectable) {
 
@@ -61,7 +30,7 @@ class CreateSubjectUI(private val bindSubject: Binder<Subject>) : AnkoComponent<
                             gravity = Gravity.CENTER_VERTICAL
                         }
 
-                themedTextView(R.string.choose_color, R.style.NotSelectable) {
+                themedTextView(R.string.choose_teacher, R.style.NotSelectable) {
                     textSize = 16f
                     id = R.id.select_teacher_label
                     bind(bindSubject) {
@@ -74,8 +43,9 @@ class CreateSubjectUI(private val bindSubject: Binder<Subject>) : AnkoComponent<
                     marginStart = dip(56)
                 }
 
-                onClick { owner.mOnChooseListener?.onRequestChooseTeacher() }
-
+                onClick {
+                    //owner.mOnChooseListener?.onRequestChooseTeacher()
+                }
             }.lparams(width = matchParent, height = dip(48)) {
                 topMargin = dip(16)
             }
@@ -94,14 +64,14 @@ class CreateSubjectUI(private val bindSubject: Binder<Subject>) : AnkoComponent<
                 themedTextView(R.string.choose_color, R.style.NotSelectable) {
                     textSize = 16f
                     id = R.id.color_name_label
-
                 }.lparams {
                     gravity = Gravity.CENTER_VERTICAL
                     marginStart = dip(56)
                 }
 
-                onClick { owner.selectColor() }
-
+                onClick {
+                    //owner.selectColor()
+                }
             }.lparams(width = matchParent, height = dip(48))
         }
     }

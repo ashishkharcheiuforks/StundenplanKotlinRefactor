@@ -11,6 +11,7 @@ import org.jetbrains.anko.*
  * Max made this for StundenplanKotlinRefactor on 20.12.2017.
  */
 
+@Suppress("MagicNumber")
 class SubstitutionSubjectUI : AnkoComponent<SubstitutionSubjectListItem> {
 
     val substitutionSubject = Binder(SubstitutionSubject())
@@ -38,8 +39,6 @@ class SubstitutionSubjectUI : AnkoComponent<SubstitutionSubjectListItem> {
                 topMargin = dip(12)
                 alignParentEnd()
             }
-
         }
     }
-
 }

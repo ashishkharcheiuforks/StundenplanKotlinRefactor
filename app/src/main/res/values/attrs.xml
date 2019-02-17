@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 	<declare-styleable name="CheckBoxWidget">
 		<attr name="label" format="string" />
 		<attr name="checked" format="boolean" />
 	</declare-styleable>
+
+	<item name="design_bottom_navigation_item" type="layout" tools:override="true">@layout/bottom_navigation_item</item>
 </resources>

@@ -1,32 +1,74 @@
 <resources>
 
-	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-		<!-- Customize your theme here. -->
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
-	</style>
-	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
-	<style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-		<item name="android:windowBackground">@drawable/background_splash</item>
-	</style>
-	<style name="Selectable">
-		<item name="android:background">?android:selectableItemBackground</item>
-		<item name="android:clickable">true</item>
-	</style>
-	<style name="SelectableBorderless">
-		<item name="android:background">?android:selectableItemBackgroundBorderless</item>
-		<item name="android:clickable">true</item>
-		<item name="android:focusable">true</item>
-	</style>
-	<style name="NotSelectable">
-		<item name="android:background">@android:color/transparent</item>
-		<item name="android:clickable">false</item>
-	</style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="CalculatorButtonOverlayStart">
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyBottomLeft">cut</item>
+        <item name="cornerSizeTopLeft">5dp</item>
+        <item name="cornerSizeBottomLeft">5dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="CalculatorButtonOverlayEnd">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
+    </style>
+
+    <style name="OutlineCalculatorButtons" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="OutlineCalculatorButtonsStart" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <!--<item name="cornerRadius">3dp</item>-->
+        <item name="shapeAppearanceOverlay">@style/CalculatorButtonOverlayStart</item>
+    </style>
+
+    <style name="OutlineCalculatorButtonsEnd" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <!--<item name="cornerRadius">3dp</item>-->
+        <item name="shapeAppearanceOverlay">@style/CalculatorButtonOverlayEnd</item>
+    </style>
+
+    <style name="Selectable">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="SelectableDark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="SelectableBorderless">
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="NotSelectable">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:clickable">false</item>
+    </style>
 
 </resources>

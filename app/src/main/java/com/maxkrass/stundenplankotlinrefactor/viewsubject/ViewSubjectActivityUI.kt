@@ -1,19 +1,19 @@
 package com.maxkrass.stundenplankotlinrefactor.viewsubject
 
-import android.support.design.widget.AppBarLayout
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import com.maxkrass.stundenplankotlinrefactor.R
+import com.maxkrass.stundenplankotlinrefactor.extensions.appBarLayout
+import com.maxkrass.stundenplankotlinrefactor.extensions.coordinatorLayout
 import com.maxkrass.stundenplankotlinrefactor.extensions.startContentInset
 import com.maxkrass.stundenplankotlinrefactor.extensions.textAppearanceResource
 import org.jetbrains.anko.*
-import org.jetbrains.anko.design.appBarLayout
-import org.jetbrains.anko.design.coordinatorLayout
 
 /**
  * Max made this for StundenplanKotlinRefactor on 20.09.2017.
  */
+@Suppress("MagicNumber")
 class ViewSubjectActivityUI : AnkoComponent<ViewSubjectActivity> {
     override fun createView(ui: AnkoContext<ViewSubjectActivity>): View = with(ui) {
         coordinatorLayout {
@@ -35,9 +35,8 @@ class ViewSubjectActivityUI : AnkoComponent<ViewSubjectActivity> {
                     marginStart = dip(72)
                     gravity = Gravity.CENTER_VERTICAL
                 }
-
             }.lparams {
-                behavior = AppBarLayout.ScrollingViewBehavior()
+                behavior = com.google.android.material.appbar.AppBarLayout.ScrollingViewBehavior()
             }
 
             appBarLayout {
@@ -61,20 +60,16 @@ class ViewSubjectActivityUI : AnkoComponent<ViewSubjectActivity> {
                             transitionName = "subject_name"
                         }.lparams(width = matchParent, gravity = Gravity.CENTER_VERTICAL)
 
-                        lparams(width = matchParent, height =  dip(72)) {
+                        lparams(width = matchParent, height = dip(72)) {
                             topMargin = dip(56)
                         }
                     }
-
                 }
 
                 lparams(width = matchParent)
             }
 
             lparams(width = matchParent, height = matchParent)
-
         }
-
     }
-
 }

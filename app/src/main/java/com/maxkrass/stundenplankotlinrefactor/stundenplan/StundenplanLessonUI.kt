@@ -4,23 +4,27 @@ import android.graphics.Color
 import android.view.Gravity
 import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.data.*
 import com.maxkrass.stundenplankotlinrefactor.extensions.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.util.*
 
-class StundenplanLessonUI(private val stundenplanAdapter: StundenplanAdapter,
-                          private val lesson: Lesson,
-                          private val subject: Subject?,
-                          private val weekday: Weekday,
-                          private val periods: List<Period>) : AnkoComponent<RelativeLayout> {
+@Suppress("MagicNumber")
+class StundenplanLessonUI(
+    private val stundenplanAdapter: StundenplanAdapter,
+    private val lesson: Lesson,
+    private val subject: Subject?,
+    private val weekday: Weekday,
+    private val periods: List<Period>
+) : AnkoComponent<RelativeLayout> {
 
     private val firstPeriodStartTime: Calendar by lazy {
         CalendarUtil.create(periods[0].startHour,
-                            periods[0].startMinute)
+                periods[0].startMinute)
     }
 
     private val periodEndTime by lazy {
@@ -34,7 +38,7 @@ class StundenplanLessonUI(private val stundenplanAdapter: StundenplanAdapter,
 
     private val periodStartTime by lazy {
         CalendarUtil.create(periods[lesson.period].startHour,
-                            periods[lesson.period].startMinute)
+                periods[lesson.period].startMinute)
     }
 
     private val startDifference by lazy { periodStartTime - firstPeriodStartTime }
@@ -61,10 +65,9 @@ class StundenplanLessonUI(private val stundenplanAdapter: StundenplanAdapter,
                 themedTextView(R.style.NotSelectable) {
                     id = R.id.room_label
                     text = lesson.location
-                    visibility(stundenplanAdapter.showRoomOnSingleLesson)
+                    isVisible = stundenplanAdapter.showRoomOnSingleLesson
                     textColor = if (colorTooLight(subject?.color)) 0x8A000000.toInt() else 0xB3FFFFFF.toInt()
                 }.lparams(width = wrapContent)
-
             }
 
             onClick {
@@ -76,7 +79,7 @@ class StundenplanLessonUI(private val stundenplanAdapter: StundenplanAdapter,
             }
 
             layoutParams = RecyclerView.LayoutParams(matchParent,
-                                                     dip((periodLength * stundenplanAdapter.mScalingFactor)))
+                    dip((periodLength * stundenplanAdapter.mScalingFactor)))
                     .apply {
                         setMargins(
                                 dip(2),
@@ -88,15 +91,17 @@ class StundenplanLessonUI(private val stundenplanAdapter: StundenplanAdapter,
             stundenplanAdapter
                     .originalMeasurements[weekday]
                     ?.put(lesson.period, startDifference to periodLength)
-
         }
-
     }
 
     private fun colorTooLight(color: SubjectColor?): Boolean {
-        val hsvValues = FloatArray(3)
-        Color.colorToHSV(Color.parseColor(color.toString()),
-                         hsvValues)
-        return hsvValues[2] > 0.99
+        return if (color != null) {
+            val hsvValues = FloatArray(3)
+            Color.colorToHSV(Color.parseColor(color.toString()),
+                    hsvValues)
+            hsvValues[2] > 0.99
+        } else {
+            false
+        }
     }
 }

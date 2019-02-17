@@ -1,24 +1,26 @@
 package com.maxkrass.stundenplankotlinrefactor.managesubjects
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.maxkrass.stundenplankotlinrefactor.R
+import com.maxkrass.stundenplankotlinrefactor.commons.IManageSubjectsView
 import com.maxkrass.stundenplankotlinrefactor.createsubject.CreateSubjectActivity
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
-import com.maxkrass.stundenplankotlinrefactor.extensions.inflate
+import com.maxkrass.stundenplankotlinrefactor.data.Uid
+import com.maxkrass.stundenplankotlinrefactor.extensions.*
+import com.maxkrass.stundenplankotlinrefactor.main.MainActivity
 import com.maxkrass.stundenplankotlinrefactor.main.MainActivityFragment
 import com.maxkrass.stundenplankotlinrefactor.viewsubject.ViewSubjectActivity
 import kotlinx.android.synthetic.main.fragment_manage_subjects.*
-import net.grandcentrix.thirtyinch.TiView
-import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.startActivity
+import org.kodein.di.generic.factory
 
 private const val BUTTON_EDIT = 0
 private const val BUTTON_DELETE = 1
@@ -26,9 +28,10 @@ private const val BUTTON_DELETE = 1
 /**
  * Max made this for StundenplanKotlinRefactor on 22.05.2017.
  */
-class ManageSubjectsFragment : MainActivityFragment<ManageSubjectsPresenterFirestore, IManageSubjectsView>(),
-                               View.OnClickListener,
-                               IManageSubjectsView {
+class ManageSubjectsFragment :
+        MainActivityFragment<ManageSubjectsPresenter, IManageSubjectsView>(),
+        IManageSubjectsView {
+
     override fun showSubjectDetails(subject: Subject) {
         /* TODO("Fix Transitions")
         val newActivity = Intent(view.context, ViewSubjectActivity::class.java)
@@ -44,68 +47,45 @@ class ManageSubjectsFragment : MainActivityFragment<ManageSubjectsPresenterFires
                 Pair.create(subjectViewHolder.subjectColor, "subject_color"),
                 Pair.create(subjectViewHolder.subjectName, "subject_name")
         )*/
-        startActivity<ViewSubjectActivity>("subject" to subject)//(newActivity, options.toBundle())
+        startActivity<ViewSubjectActivity>("subject" to subject) // (newActivity, options.toBundle())
     }
 
-    override fun onSubjectChosen(subject: Subject) {
-        mOnSubjectChosenListener?.onSubjectChosen(subject)
-    }
+    private val presenterFactory: (Uid) -> ManageSubjectsPresenter by kodein.factory()
 
-    override fun providePresenter() = ManageSubjectsPresenterFirestore(uid, mSelect)
+    override fun providePresenter() = presenterFactory(uid)
 
-    override val showsTabs: Boolean get() = false
-    override val toolbarTitle: String by lazy { getString(R.string.action_subjects) }
-
-    private val mSelect: Boolean by lazy {
-        arguments?.getBoolean("select") ?: false
-    }
-    private val mOnSubjectChosenListener: OnSubjectChosenListener? by lazy {
-        if (mSelect) {
-            activity as? OnSubjectChosenListener ?: throw
-            ClassCastException(activity.toString() + " must implement OnTeacherChosenListener")
-        } else {
-            null
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater?,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater?.inflate(R.layout.fragment_manage_subjects, container, false) ?:
-               container?.inflate(R.layout.fragment_manage_subjects)
+        return inflater.inflate(R.layout.fragment_manage_subjects, container, false)
+                ?: container?.inflate(R.layout.fragment_manage_subjects)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view?.let {
-            with(it.find<RecyclerView>(R.id.subjects_recyclerview)) {
-                adapter = presenter.subjectsAdapter
-                setHasFixedSize(true)
-            }
-            it.find<View>(R.id.add_subject).setOnClickListener(this)
+        with(view.find<RecyclerView>(R.id.subjects_recyclerview)) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = presenter.subjectsAdapter
+            setHasFixedSize(true)
         }
-    }
-
-    override fun onClick(v: View) {
-        activity.startActivity(Intent(activity, CreateSubjectActivity::class.java))
+        MainActivity.fabClickEvent.observe(this, Observer {
+            NavHostFragment.findNavController(this).navigate(R.id.action_create_subject, null)
+        })
     }
 
     override fun showLongClickDialog(subject: Subject): Boolean {
-        alert {
+        alert(Android) {
             title = subject.name
-            items(resources.getStringArray(R.array.dialog_options).asList())
-            { dialog: DialogInterface, index: Int ->
+            items(resources.getStringArray(R.array.dialog_options).asList()) { dialog: DialogInterface, index: Int ->
                 when (index) {
-                    BUTTON_EDIT   -> {
+                    BUTTON_EDIT -> {
                         startActivity<CreateSubjectActivity>("subjectKey" to subject.name)
                         dialog.dismiss()
                     }
                     BUTTON_DELETE -> {
-                        longSnackbar(subjects_recyclerview,
-                                     subject.name + " deleted",
-                                     "restore",
-                                     { presenter.restore(subject) }).show()
+                        subjects_recyclerview.longSnackbar(
+                                subject.name + " deleted",
+                                "restore"
+                        ) { presenter.restore(subject) }.show()
 
                         dialog.dismiss()
                         presenter.delete(subject)
@@ -115,21 +95,4 @@ class ManageSubjectsFragment : MainActivityFragment<ManageSubjectsPresenterFires
         }
         return true
     }
-
-    interface OnSubjectChosenListener {
-        fun onSubjectChosen(subject: Subject)
-
-        fun onNoneChosen()
-    }
 }
-
-interface IManageSubjectsView : TiView {
-
-    fun onSubjectChosen(subject: Subject)
-
-    fun showLongClickDialog(subject: Subject): Boolean
-
-    fun showSubjectDetails(subject: Subject)
-
-}
-

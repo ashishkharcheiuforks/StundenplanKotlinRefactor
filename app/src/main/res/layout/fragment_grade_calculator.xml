@@ -1,307 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_gravity="end|center_vertical"
-	android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end|center_vertical"
+    android:orientation="vertical">
 
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="50dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-		<TextView
-			android:id="@+id/punkteD"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentStart="true"
-			android:layout_centerVertical="true"
-			android:layout_marginStart="10dp"
-			android:text="Punkte Ø: 0,00"
-			android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        <TextView
+            android:id="@+id/punkteD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="Punkte Ø: 0,00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-		<TextView
-			android:id="@+id/notenD"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
-			android:layout_marginStart="20dp"
-			android:layout_toEndOf="@+id/punkteD"
-			android:text="Noten Ø: 0,00"
-			android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-	</RelativeLayout>
+        <TextView
+            android:id="@+id/notenD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/punkteD"
+            android:text="Noten Ø: 0,00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </RelativeLayout>
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="@color/grey600" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey600" />
 
-	<TableLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:padding="7dp"
-		android:shrinkColumns="*"
-		android:stretchColumns="*">
+    <ScrollView
+        android:id="@+id/sview331"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
 
-		<TableRow
-			android:id="@+id/tableRow1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/textView1"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Sehr Gut" />
+            <TextView
+                android:id="@+id/notenListe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:text="[]" />
 
-			<Button
-				android:id="@+id/b15"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="15" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey600" />
 
-			<Button
-				android:id="@+id/b14"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="14" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="7dp"
+                android:paddingTop="4dp"
+                android:text="Deine Fächer:" />
 
-			<Button
-				android:id="@+id/b13"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="13" />
-		</TableRow>
+            <TextView
+                android:id="@+id/fachListeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="7dp"
+                android:text="" />
+        </LinearLayout>
+    </ScrollView>
 
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@color/grey600" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey600" />
 
-		<TableRow
-			android:id="@+id/tableRow2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
 
-			<TextView
-				android:id="@+id/textView2"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Gut" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Sehr Gut" />
 
-			<Button
-				android:id="@+id/b12"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="12" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/b11"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="11" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b15"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15" />
 
-			<Button
-				android:id="@+id/b10"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/ten" />
-		</TableRow>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b14"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14" />
 
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b13"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13" />
+        </TableRow>
 
-		<TableRow
-			android:id="@+id/tableRow3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey600" />
 
-			<TextView
-				android:id="@+id/textView3"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Befriedigend" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Gut" />
 
-			<Button
-				android:id="@+id/b9"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/nine" />
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/b8"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/eight" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b12"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12" />
 
-			<Button
-				android:id="@+id/b7"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/seven" />
-		</TableRow>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b11"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11" />
 
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b10"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ten" />
+        </TableRow>
 
-		<TableRow
-			android:id="@+id/tableRow4"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey600" />
 
-			<TextView
-				android:id="@+id/textView4"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Ausreichend" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Befriedigend" />
 
-			<Button
-				android:id="@+id/b6"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/six" />
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/b5"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/five" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b9"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nine" />
 
-			<Button
-				android:id="@+id/b4"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/four" />
-		</TableRow>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b8"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eight" />
 
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b7"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seven" />
+        </TableRow>
 
-		<TableRow
-			android:id="@+id/tableRow5"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey600" />
 
-			<TextView
-				android:id="@+id/textView5"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Mangelhaft" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Ausreichend" />
 
-			<Button
-				android:id="@+id/b3"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/three" />
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/b2"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/two" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b6"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/six" />
 
-			<Button
-				android:id="@+id/b1"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/one" />
-		</TableRow>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b5"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/five" />
 
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b4"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/four" />
+        </TableRow>
 
-		<TableRow
-			android:id="@+id/tableRow6"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey600" />
 
-			<TextView
-				android:id="@+id/textView6"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end|center_vertical"
-				android:maxLines="1"
-				android:text="Ungenügend" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Mangelhaft" />
 
-			<Button
-				android:id="@+id/b0"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="0" />
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/bBack"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/grade_back" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b3"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/three" />
 
-			<Button
-				android:id="@+id/bDelete"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="X" />
-		</TableRow>
-	</TableLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b2"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/two" />
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b1"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one" />
+        </TableRow>
 
-	<ScrollView
-		android:id="@+id/sview331"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="2dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey600" />
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:maxLines="1"
+            android:text="Ungenügend" />
 
-			<TextView
-				android:id="@+id/notenListe"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="3dp"
-				android:text="[]" />
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:background="@color/grey600" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/b0"
+                style="@style/OutlineCalculatorButtonsStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
 
-			<TextView
-				android:id="@+id/textView7"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingStart="7dp"
-				android:paddingTop="4dp"
-				android:text="Deine Fächer:" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bBack"
+                style="@style/OutlineCalculatorButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grade_back" />
 
-			<TextView
-				android:id="@+id/fachListeTxt"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:padding="7dp"
-				android:text="" />
-		</LinearLayout>
-	</ScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bDelete"
+                style="@style/OutlineCalculatorButtonsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X" />
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

@@ -10,7 +10,6 @@ import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.customviews.CheckBoxWidget
 import org.jetbrains.anko.ctx
 
-
 /**
  * Max made this for StundenplanKotlinRefactor on 20.09.2017.
  */

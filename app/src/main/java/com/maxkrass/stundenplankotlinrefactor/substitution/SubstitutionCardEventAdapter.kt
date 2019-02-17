@@ -1,8 +1,8 @@
 package com.maxkrass.stundenplankotlinrefactor.substitution
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import com.maxkrass.stundenplankotlinrefactor.data.SubstitutionEvent
 import splitties.typesaferecyclerview.ItemViewHolder
 
@@ -11,24 +11,21 @@ import splitties.typesaferecyclerview.ItemViewHolder
  */
 
 internal class SubstitutionCardEventAdapter(
-        private val host: SubstitutionEventViewHolder.Host,
-        private val context: Context,
-        private val mEvents: List<SubstitutionEvent>
-) : RecyclerView.Adapter<SubstitutionCardEventAdapter.SubstitutionEventViewHolder>() {
+    private val host: SubstitutionEventViewHolder.Host,
+    private val context: Context
+) : ListAdapter<SubstitutionEvent, SubstitutionCardEventAdapter.SubstitutionEventViewHolder>(SubstitutionEventDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubstitutionEventViewHolder =
             SubstitutionEventViewHolder(host, SingleSubstitutionEventListItem(context))
 
     override fun onBindViewHolder(holder: SubstitutionEventViewHolder, position: Int) {
-        holder.bind(mEvents[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return mEvents.size
-    }
-
-    internal class SubstitutionEventViewHolder(host: Host,
-                                               view: SingleSubstitutionEventListItem) :
+    internal class SubstitutionEventViewHolder(
+        host: Host,
+        view: SingleSubstitutionEventListItem
+    ) :
             ItemViewHolder<SubstitutionEvent,
                     SingleSubstitutionEventListItem,
                     SubstitutionEventViewHolder.Host>(host, view) {
@@ -38,6 +35,5 @@ internal class SubstitutionCardEventAdapter(
         }
 
         interface Host
-
     }
 }

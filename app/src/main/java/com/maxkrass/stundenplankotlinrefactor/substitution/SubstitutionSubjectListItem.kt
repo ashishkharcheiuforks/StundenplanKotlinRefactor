@@ -10,15 +10,14 @@ import org.jetbrains.anko.AnkoContext
  */
 class SubstitutionSubjectListItem(context: Context) : RelativeLayout(context) {
 
-    internal val ui = SubstitutionSubjectUI()
-
-    init {
-        addView(ui.createView(AnkoContext.create(context, this)))
-    }
+    private val ui = SubstitutionSubjectUI()
 
     var data = SubstitutionSubject()
         set(value) {
             ui.substitutionSubject.item = value
         }
 
+    init {
+        addView(ui.createView(AnkoContext.create(context, this)))
+    }
 }

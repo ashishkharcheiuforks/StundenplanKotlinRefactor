@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="choose_color">Wähle eine Farbe</string>
+    <string name="monday_title">Mo</string>
+    <string name="tuesday_title">Di</string>
+    <string name="wednesday_title">Mi</string>
+    <string name="thursday_title">Do</string>
+    <string name="friday_title">Fr</string>
+    <string name="select_subject">Wähle ein Fach…</string>
+    <string name="select_teacher">Wähle eine Lehrperson…</string>
+    <string name="action_none">nichts</string>
+    <string name="action_save">speichern</string>
+    <string name="choose_subject_title">Deine Fächer</string>
+    <string name="new_lesson_title">Neue Stunde</string>
+    <string name="double_period">Doppelstunde</string>
+    <string name="room_place">Raum/Ort</string>
+    <string name="teachers_name">name</string>
+    <string name="teachers_phone">Teacher\'s phone</string>
+    <string name="teachers_email">Teacher\'s email</string>
+    <string name="subject_name">Name des Fachs</string>
+    <string name="subject_abbr">Abkrz.</string>
+    <string name="new_teacher">Neue Lehrperson</string>
+    <string name="new_subject">Neues Fach</string>
+    <string name="subject_name_invalid">Der Name darf nicht leer sein</string>
+    <string name="grade_calculator">Notenrechner</string>
+    <string name="notification_settings">Benachrichtungen</string>
+    <string name="substitutions_receive_notification">Erhalte Benachrichtigungen für den Vertretungsplan</string>
+    <string name="substitution_plan">Vertretungsplan</string>
+    <string name="grade_average">Notendurchschnitt: %.2f</string>
+    <string name="points_average">Punktedurchschnitt: %.2f</string>
+    <string name="no_saved_subject">Du hast noch keine Fächer erstellt</string>
+    <string name="action_teachers">Lehrpersonen</string>
+    <string name="action_timetable">Stundenplan</string>
+    <string name="action_substitutionplan">Vertretungen</string>
+    <string name="add_subject">Hinzufügen</string>
+    <string name="action_subjects">Fächer</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="my_subjects">Meine Fächer</string>
+    <string name="visible_substitution_plans">Sichtbare Vertretungspläne</string>
+    <string name="my_saved_subjects">Meine gespeicherten Fächer</string>
+    <string name="action_grade_calc">Notenrechner</string>
+    <string name="choose_teacher">Wähle deine Lehrperson</string>
+    <string name="select_subject_error">Du musst ein Fach auswählen</string>
+    <string name="saving_failed_error">Speichern fehlgeschlagen</string>
+    <string name="profile_image_description">Profilbild</string>
+    <string name="manage_teachers_title">Deine Lehrer</string>
+    <string name="lesson_already_existing_error">Du hast schon Unterricht %1$s in der %2$d. Stunde</string>
+    <string name="subject_name_already_exists">Du hast dieses Fach schon erstellt</string>
+    <string-array name="weekday">
+        <item>Montags</item>
+        <item>Dienstags</item>
+        <item>Mittwochs</item>
+        <item>Donnerstags</item>
+        <item>Freitags</item>
+    </string-array>
+    <string-array name="periods">
+        <item>1. Stunde</item>
+        <item>2. Stunde</item>
+        <item>3. Stunde</item>
+        <item>4. Stunde</item>
+        <item>5. Stunde</item>
+        <item>6. Stunde</item>
+        <item>7. Stunde</item>
+        <item>8. Stunde</item>
+        <item>9. Stunde</item>
+        <item>10. Stunde</item>
+    </string-array>
+</resources>

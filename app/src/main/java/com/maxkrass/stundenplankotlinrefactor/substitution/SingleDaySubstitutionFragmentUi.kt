@@ -1,33 +1,26 @@
 package com.maxkrass.stundenplankotlinrefactor.substitution
 
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.NestedScrollView
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import com.maxkrass.stundenplankotlinrefactor.R
 import com.maxkrass.stundenplankotlinrefactor.commons.Binder
 import com.maxkrass.stundenplankotlinrefactor.data.SubstitutionEvent
-import com.maxkrass.stundenplankotlinrefactor.extensions.bind
+import com.maxkrass.stundenplankotlinrefactor.extensions.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.appcompat.v7.toolbar
-import org.jetbrains.anko.design.appBarLayout
-import org.jetbrains.anko.design.coordinatorLayout
-import org.jetbrains.anko.design.floatingActionButton
-import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.nestedScrollView
-import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 /**
  * Max made this for StundenplanKotlinRefactor on 29.11.2017.
  */
-class SingleDaySubstitutionFragmentUi(private val recyclerAdapter: SingleDaySubRecyclerAdapterUnified, private val selectedEvent: Binder<SubstitutionEvent>) : AnkoComponent<SingleDaySubstitutionFragment> {
+@Suppress("MagicNumber")
+class SingleDaySubstitutionFragmentUi(
+    private val recyclerAdapter: SingleDaySubRecyclerAdapterUnified,
+    private val selectedEvent: Binder<SubstitutionEvent>
+) : AnkoComponent<SingleDaySubstitutionFragment> {
 
     lateinit var scrollView: NestedScrollView
-    lateinit var addSubstitutionSubject: FloatingActionButton
+    lateinit var addSubstitutionSubject: com.google.android.material.floatingactionbutton.FloatingActionButton
 
     override fun createView(ui: AnkoContext<SingleDaySubstitutionFragment>): View = with(ui) {
         coordinatorLayout {
@@ -42,15 +35,13 @@ class SingleDaySubstitutionFragmentUi(private val recyclerAdapter: SingleDaySubR
                     clipToPadding = false
                     bottomPadding = dip(4)
                     topPadding = dip(4)
-                    layoutManager = LinearLayoutManager(ctx)
+                    layoutManager = androidx.recyclerview.widget.LinearLayoutManager(ctx)
                     adapter = recyclerAdapter
                     isVerticalScrollBarEnabled = false
                     lparams(width = matchParent, height = matchParent)
                 }
-
-
             }.lparams(width = matchParent, height = matchParent) {
-                behavior = AppBarLayout.ScrollingViewBehavior()
+                behavior = com.google.android.material.appbar.AppBarLayout.ScrollingViewBehavior()
             }
 
             scrollView = nestedScrollView {
@@ -81,7 +72,6 @@ class SingleDaySubstitutionFragmentUi(private val recyclerAdapter: SingleDaySubR
                             setTitleTextAppearance(ctx, R.style.TextAppearance_AppCompat_Display1)
                             setTitleTextColor(ContextCompat.getColor(ctx, R.color.material_white))
                         }.lparams(width = matchParent)
-
                     }.lparams(width = matchParent)
 
                     verticalLayout {
@@ -98,13 +88,10 @@ class SingleDaySubstitutionFragmentUi(private val recyclerAdapter: SingleDaySubR
                                 text = it.annotation
                             }
                         }
-
                     }.lparams(width = matchParent)
-
                 }.lparams(width = matchParent)
-
             }.lparams(width = matchParent) {
-                behavior = BottomSheetBehavior<NestedScrollView>().apply {
+                behavior = com.google.android.material.bottomsheet.BottomSheetBehavior<NestedScrollView>().apply {
                     isHideable = true
                     peekHeight = dip(116)
                 }
@@ -113,17 +100,14 @@ class SingleDaySubstitutionFragmentUi(private val recyclerAdapter: SingleDaySubR
             addSubstitutionSubject = floatingActionButton {
 
                 id = R.id.add_substitution_subject
-                size = FloatingActionButton.SIZE_MINI
-                visibility = View.GONE
+                size = com.google.android.material.floatingactionbutton.FloatingActionButton.SIZE_MINI
+                hide()
                 imageResource = R.drawable.ic_add_24dp
-
             }.lparams {
                 marginEnd = dip(16)
                 anchorId = R.id.substitution_bottom_sheet_app_bar
                 anchorGravity = Gravity.TOP or Gravity.END
             }
         }
-
-
     }
 }

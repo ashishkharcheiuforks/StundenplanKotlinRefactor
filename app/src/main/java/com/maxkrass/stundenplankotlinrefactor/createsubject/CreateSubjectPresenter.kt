@@ -1,42 +1,52 @@
 package com.maxkrass.stundenplankotlinrefactor.createsubject
 
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
 import com.maxkrass.stundenplankotlinrefactor.commons.CreateSubjectView
 import com.maxkrass.stundenplankotlinrefactor.data.Subject
-import com.thetechnocafe.gurleensethi.liteutils.Validator
+import com.maxkrass.stundenplankotlinrefactor.data.Teacher
+import com.maxkrass.stundenplankotlinrefactor.utils.Validator
 import net.grandcentrix.thirtyinch.TiPresenter
+import net.grandcentrix.thirtyinch.kotlin.deliverToView
 
 /**
  * Max made this for Stundenplan2 on 20.07.2016.
  */
-class CreateSubjectPresenter<V : CreateSubjectView>(private val subjectRepository: SubjectRepository,
-                                                    private val mSubjectKey: String?) : TiPresenter<V>(), OnCompleteListener<DocumentSnapshot> {
+class CreateSubjectPresenter<V : CreateSubjectView>(
+        private val subjectRepository: SubjectRepository,
+        private val mSubjectKey: String?
+) : TiPresenter<V>() {
 
     private val isNewSubject: Boolean
-        get() = mSubjectKey?.isBlank() != false
+        get() = mSubjectKey?.isBlank() ?: true
 
     override fun onCreate() {
         super.onCreate()
         if (!isNewSubject) {
-            subjectRepository.getSubject(mSubjectKey as String, this)
+            subjectRepository.getSubject(mSubjectKey as String) {
+                if (it.isSuccessful) {
+                    deliverToView {
+                        showSubject(it.result?.toObject(Subject::class.java) ?: Subject())
+                    }
+                } else {
+                    deliverToView { exitCreateDialog() }
+                }
+            }
         }
     }
 
     fun validateSubject(name: Validator, abbreviation: Validator, color: String, teacher: String) {
-        view?.removeErrors()
+        deliverToView { removeErrors() }
         if (validateName(name) and validateAbbreviation(abbreviation)) {
             if (isNewSubject || subjectNameWasChanged(name.text)) {
                 subjectRepository.subjectExists(name.text) { task ->
-                    if (task.isSuccessful && task.result.exists()) {
-                        view?.subjectAlreadyExists()
+                    if (task.isSuccessful && task.result!!.exists()) {
+                        deliverToView { subjectAlreadyExists() }
                     } else {
-                        saveSubject(name.text, abbreviation.text, color, teacher)
+                        saveSubject(Subject(name.text, abbreviation.text, teacher, color))
                     }
                 }
             } else {
-                saveSubject(name.text, abbreviation.text, color, teacher)
+                saveSubject(Subject(name.text, abbreviation.text, teacher, color))
             }
         }
     }
@@ -47,7 +57,7 @@ class CreateSubjectPresenter<V : CreateSubjectView>(private val subjectRepositor
                 .noSpecialCharacter()
                 .nonEmpty()
                 .addErrorCallback {
-                    view?.nameInvalid()
+                    deliverToView { nameInvalid() }
                 }.validate()
     }
 
@@ -56,37 +66,30 @@ class CreateSubjectPresenter<V : CreateSubjectView>(private val subjectRepositor
                 .noSpecialCharacter()
                 .maximumLength(5)
                 .addErrorCallback {
-                    view?.abbreviationInvalid()
+                    deliverToView { abbreviationInvalid() }
                 }.validate()
     }
 
-    private fun saveSubject(name: String, abbreviation: String, color: String, teacher: String) {
+    private fun saveSubject(subject: Subject) {
         val listener = OnCompleteListener<Void> { task ->
             if (task.isSuccessful)
-                view?.exitCreateDialog()
+                deliverToView { exitCreateDialog() }
             else
-                view?.savingFailed()
+                deliverToView { savingFailed() }
         }
 
         if (isNewSubject) {
-            subjectRepository.createSubject(name, abbreviation, color, teacher, listener)
+            subjectRepository.createSubject(subject, listener)
         } else if (null != mSubjectKey) {
             subjectRepository.updateSubject(mSubjectKey,
-                                            name,
-                                            abbreviation,
-                                            color,
-                                            teacher,
-                                            listener)
+                    subject,
+                    listener)
         }
     }
 
     private fun subjectNameWasChanged(name: String): Boolean = name != mSubjectKey
 
-    override fun onComplete(task: Task<DocumentSnapshot>) {
-        if (task.isSuccessful) {
-            view?.showSubject(task.result.toObject(Subject::class.java))
-        } else {
-            view?.exitCreateDialog()
-        }
+    fun teacherChosen(teacher: Teacher?) {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

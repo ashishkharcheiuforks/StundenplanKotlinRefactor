@@ -7,13 +7,13 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.maxkrass.stundenplankotlinrefactor.main.MainActivity
 
-
 /**
  * Max made this for StundenplanKotlinRefactor on 28.05.2017.
  */
 class SplashActivity : AppCompatActivity() {
 
-    private val googleTosUrl = "https://www.google.com/policies/terms/"
+    private val googleTosUrl = "https://policies.google.com/terms"
+    private val googlePrivacyPolicyUrl = "https://policies.google.com/privacy"
     private val rcSignIn = 7001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == rcSignIn) {
 
@@ -53,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
                                 AuthUI.IdpConfig.GoogleBuilder().build()
                         ))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
-                        .setTosUrl(googleTosUrl)
+                        .setTosAndPrivacyPolicyUrls(googleTosUrl, googlePrivacyPolicyUrl)
                         .build(),
                 rcSignIn)
     }
